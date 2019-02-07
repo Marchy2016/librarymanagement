@@ -2,34 +2,44 @@ package com.roma.librarymanagment.controller;
 
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.repositories.AuthorRepository;
+import com.roma.librarymanagment.services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 
 @Controller
 public class AuthorController {
     @Autowired
-    public AuthorRepository authorRepository;
+    private AuthorRepository authorRepository;
+
+    @Autowired
+    private AuthorService authorService;
 
     @RequestMapping(path = "/listauthors", method = RequestMethod.GET)
     public String listAuthors(Model model){
         model.addAttribute("authors",authorRepository.findAll());
         return "authors";
     }
+    @RequestMapping(path = "/saveauthors", method = RequestMethod.GET)
+    private String saveBook(Model model){
 
-    @RequestMapping(path = "/saveauthor", method = RequestMethod.POST)
-    private void saveBook( @RequestParam(value = "firstName", required = false) String firstName,
-                           @RequestParam(value = "lastName", required = false) String lastName){
-
-        Author book = new Author(firstName,lastName);
-        authorRepository.save(book);
-
-
+      model.addAttribute("author",new Author());
+        return "addAuthors";
     }
+
+    @RequestMapping(path = "/saveauthors", method = RequestMethod.POST)
+    private String save(Model model,@ModelAttribute  Author author){
+
+        final Author author_ = authorService.add(author.getFirstName(),author.getLastName());
+        model.addAttribute("authors",new ArrayList<Author>(){{add(author_);}});
+        return "authors";
+    }
+
+
 
 
 }

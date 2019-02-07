@@ -9,17 +9,19 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>First Name</th>
+        <th>First Name</th>e
         <th>Last Name</th>
-    </tr>
-    <tr th:each="book : ${authors}">
-        <td th:text="${book.id}">123</td>
-        <td th:text="${book.firstName}">Malesela</td>
-        <td th:text="${book.lastName}">Team</td>
 
     </tr>
+    <tr th:each="author : ${authors}">
+        <td th:text="${author.id}">123</td>
+        <td th:text="${author.firstName}">Malesela</td>
+        <td th:text="${author.lastName}">Team</td>
+    </tr>
 
-</table>
+
+
+   </table>
 
 </body>
 </html>
