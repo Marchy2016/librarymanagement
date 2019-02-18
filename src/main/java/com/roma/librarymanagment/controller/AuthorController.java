@@ -13,15 +13,18 @@ import java.util.ArrayList;
 
 @Controller
 public class AuthorController {
-    @Autowired
-    private AuthorRepository authorRepository;
 
-    @Autowired
+
+
     private AuthorService authorService;
+
+    public AuthorController(AuthorService authorService) {
+        this.authorService = authorService;
+    }
 
     @RequestMapping(path = "/listauthors", method = RequestMethod.GET)
     public String listAuthors(Model model){
-        model.addAttribute("authors",authorRepository.findAll());
+        model.addAttribute("authors",authorService.findAll());
         return "authors";
     }
     @RequestMapping(path = "/saveauthors", method = RequestMethod.GET)
@@ -36,7 +39,7 @@ public class AuthorController {
 
         final Author author_ = authorService.add(author.getFirstName(),author.getLastName());
         model.addAttribute("authors",new ArrayList<Author>(){{add(author_);}});
-        return "authors";
+        return "menu";
     }
 
 

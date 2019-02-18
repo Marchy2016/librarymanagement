@@ -30,7 +30,7 @@ public class DevBootStrap implements ApplicationListener<ContextRefreshedEvent> 
        // initData();
 
     }
-    private void initData(){
+   /* private void initData(){
 
 
         Publisher publisher = new Publisher();
@@ -71,6 +71,6 @@ public class DevBootStrap implements ApplicationListener<ContextRefreshedEvent> 
         authorRepository.save(molefe);
         bookRepository.save(bible);
 
-    }
+    }*/
 
 }

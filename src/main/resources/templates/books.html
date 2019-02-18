@@ -5,6 +5,36 @@
     <title>Library Books</title>
 </head>
 <body>
+<p>
+
+    <form action="#" method="post" th:action="@{/savebooks}" th:object="${book}" >
+<p>Title: <input type="text" th:field="*{title}" /></p>
+<p>ISBN: <input type="text" th:field="*{isbn}" /></p>
+<p>Author
+    <select th:field="*{author}">
+        <option th:each="type : ${authors}"
+                th:value="${id}"
+                th:text="#{${'author.firstName.' + author}}">Marcus</option>
+    </select>
+    </form>
+</p>
+<p>Publisher
+    <select th:field="*{publisher}">
+        <option th:each="type : ${publishers}"
+                th:value="${id}"
+                th:text="#{${'author.id.' + id}}">Wireframe</option>
+    </select>
+    </form>
+</p>
+<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+
+
+
+
+
+
+
 <h1>Book list</h1>
 <table>
     <tr>

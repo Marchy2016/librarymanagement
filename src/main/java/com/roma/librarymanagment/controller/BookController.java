@@ -5,6 +5,7 @@ import com.roma.librarymanagment.model.Book;
 import com.roma.librarymanagment.model.Publisher;
 import com.roma.librarymanagment.repositories.BookRepository;
 import com.roma.librarymanagment.services.BookService;
+import com.roma.librarymanagment.services.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
