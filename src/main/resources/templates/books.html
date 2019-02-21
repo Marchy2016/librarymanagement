@@ -2,53 +2,32 @@
 <html lang="en" xmlns="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
-    <title>Library Books</title>
+    <title>Book List</title>
 </head>
 <body>
-<p>
-
-    <form action="#" method="post" th:action="@{/savebooks}" th:object="${book}" >
-<p>Title: <input type="text" th:field="*{title}" /></p>
-<p>ISBN: <input type="text" th:field="*{isbn}" /></p>
-<p>Author
-    <select th:field="*{author}">
-        <option th:each="type : ${authors}"
-                th:value="${id}"
-                th:text="#{${'author.firstName.' + author}}">Marcus</option>
-    </select>
-    </form>
-</p>
-<p>Publisher
-    <select th:field="*{publisher}">
-        <option th:each="type : ${publishers}"
-                th:value="${id}"
-                th:text="#{${'author.id.' + id}}">Wireframe</option>
-    </select>
-    </form>
-</p>
-<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-
-
-
-
-
-
-
-
+<a href="/savebook">Add Book</a>
+<a href="/">Home</a>
+<hr>
+<p align="center">
 <h1>Book list</h1>
 <table>
     <tr>
-        <th>ID</th>
         <th>Title</th>
+        <th>ISBN</th>
+        <th>Author</th>
         <th>Publisher</th>
+
     </tr>
-    <tr th:each="book : ${libBooks}">
-        <td th:text="${book.id}">123</td>
-        <td th:text="${book.title}">J2EE</td>
-        <td th:text="${book.publisher.name}">Khetho</td>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}">123</td>
+        <td th:text="${book.isbn}">kmjn001</td>
+        <td th:text="${book.author.firstName}">Malesela</td>
+        <td th:text="${book.publisher.name}">Team</td>
     </tr>
+
+
 
 </table>
-
+</p>
 </body>
 </html>

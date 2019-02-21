@@ -4,9 +4,8 @@ package com.roma.librarymanagment.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
-import java.util.Set;
 
 @Data
 @Entity
@@ -15,11 +14,19 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
 
-    @ManyToMany(mappedBy = "authors")
-    private Set<Book> books = new HashSet<>();
+    //@ManyToMany(mappedBy = "authors")
+    //private Book books;
+    public Author(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+    }
+    public Author(){}
 
     @Override
     public boolean equals(Object o) {
@@ -33,10 +40,8 @@ public class Author {
     @Override
     public String toString() {
         return "Author{" +
-                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", books=" + books +
                 '}';
     }
 
@@ -45,19 +50,4 @@ public class Author {
 
         return Objects.hash(id);
     }
-
-    public Author(String firstName, String lastName){
-        this.firstName = firstName;
-        this.lastName = lastName;
-
-    }
-
-    public Author(String firstName, String lastName, Set<Book> books){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.books = books;
-    }
-    public Author(){}
-
-
 }

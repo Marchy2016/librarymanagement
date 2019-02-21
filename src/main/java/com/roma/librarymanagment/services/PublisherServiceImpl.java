@@ -13,7 +13,7 @@ public class PublisherServiceImpl implements PublisherService {
     @Autowired
     PublisherRepository publisherRepository;
     Publisher publisher;
-    public Publisher addPublisher(String name, String address) {
+    public Publisher add(String name, String address) {
 
         if((!"".equals(name) && name != null) && (!"".equals(address) && address != null)) {
             publisher = new Publisher(name,address);

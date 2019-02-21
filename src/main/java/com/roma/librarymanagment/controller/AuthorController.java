@@ -14,15 +14,13 @@ import java.util.ArrayList;
 @Controller
 public class AuthorController {
 
-
-
     private AuthorService authorService;
 
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
     }
 
-    @RequestMapping(path = "/listauthors", method = RequestMethod.GET)
+    @RequestMapping(path = "/authors", method = RequestMethod.GET)
     public String listAuthors(Model model){
         model.addAttribute("authors",authorService.findAll());
         return "authors";

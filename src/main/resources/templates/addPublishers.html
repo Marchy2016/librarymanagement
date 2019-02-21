@@ -6,11 +6,11 @@
 </head>
 <body>
 <p align="center">
-<h1>Form</h1>
-<form action="#" method="post" th:action="@{/saveauthors}" th:object="${publisher}" >
+<h1>Add Publisher</h1>
+<form action="#" method="post" th:action="@{/savepublishers}" th:object="${publisher}" >
     <p>Name: <input type="text" th:field="*{name}" /></p>
     <p>Address: <input type="text" th:field="*{address}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <p><input type="submit" value="Add" /> <input type="reset" value="Reset" /></p>
 </form>
 </p>
 </body>

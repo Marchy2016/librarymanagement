@@ -5,14 +5,28 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Form</h1>
-<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
-    <p>ISBN <input type="text" th:field="*{book.isbn}" /></p>
-    <p>Title: <input type="text" th:field="*{title}" /></p>
-    <p>Publisher: <input type="text" th:field="*{publisher}" /></p>
-    <p>Author: <input type="text" th:field="*{author}" /></p>
 
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+<p align="center">
+<h1>Add Book</h1>
+<form action="#" method="post" th:action="@{/savebook}" th:object="${book}" >
+    <p>Name: <input type="text" th:field="*{title}" /></p>
+    <p>ISBN: <input type="text" th:field="*{isbn}" /></p>
+    <p>Author: <select class="form-control" th:field="${book.author}"  id="dropAuthors">
+        <option value="0">select author</option>
+        <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}"></option>
+    </select>
+
+
+    </p>
+    <p>Publisher:
+        <select class="form-control" th:field="${book.publisher}"  id="dropPublisher">
+            <option value="0">select publisher</option>
+            <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}"></option>
+        </select>
+      </p>
+    <p><input type="submit" value="Add" /> <input type="reset" value="Reset" /></p>
 </form>
+</p>
 </body>
 </html>

@@ -1,9 +1,7 @@
 package com.roma.librarymanagment.controller;
 
 import com.roma.librarymanagment.model.Publisher;
-import com.roma.librarymanagment.repositories.PublisherRepository;
 import com.roma.librarymanagment.services.PublisherService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,14 +27,22 @@ public class PublisherController {
         return "publishers";
 
     }
+
+    @RequestMapping(path = "/savepublishers", method = RequestMethod.GET)
+    private String saveBook(Model model){
+
+        model.addAttribute("publisher",new Publisher());
+        return "addPublishers";
+    }
+
     @RequestMapping(path = "/savepublishers", method = RequestMethod.POST)
     private String addPublisher(Model model, @ModelAttribute Publisher publisher){
-        Publisher publisher1 = publisherService.addPublisher(publisher.getName(),publisher.getAddress());
+        Publisher publisher1 = publisherService.add(publisher.getName(),publisher.getAddress());
         model.addAttribute("publisher", new ArrayList<Publisher>(){{add(publisher1);}});
         return "menu";
 
-
     }
+
 
 
 

@@ -3,6 +3,7 @@ package com.roma.librarymanagment.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Data
@@ -12,13 +13,16 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String address;
 
     public Publisher(String name, String address) {
         this.name = name;
         this.address = address;
     }
+    public Publisher(){}
 
     @Override
     public boolean equals(Object o) {

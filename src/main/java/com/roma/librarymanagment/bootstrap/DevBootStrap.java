@@ -1,8 +1,5 @@
 package com.roma.librarymanagment.bootstrap;
 
-import com.roma.librarymanagment.model.Author;
-import com.roma.librarymanagment.model.Book;
-import com.roma.librarymanagment.model.Publisher;
 import com.roma.librarymanagment.repositories.AuthorRepository;
 import com.roma.librarymanagment.repositories.BookRepository;
 import com.roma.librarymanagment.repositories.PublisherRepository;

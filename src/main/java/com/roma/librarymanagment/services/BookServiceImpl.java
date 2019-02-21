@@ -20,9 +20,9 @@ public class BookServiceImpl implements BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Book add(String title, String isbn, Publisher publisher, Set<Author> authors){
+    public Book add(String title, String isbn, Publisher publisher, Author author){
 
-        Book ddd = new Book(title,isbn,publisher,authors);
+        Book ddd = new Book(title,isbn,publisher,author);
         bookRepository.save(ddd);
 
         return ddd;
