@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Data
@@ -15,6 +16,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
+    @Size(min=1, max = 15)
     private String firstName;
     @NotNull
     private String lastName;

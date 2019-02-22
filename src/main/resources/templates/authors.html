@@ -2,27 +2,43 @@
 <html lang="en" xmlns="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>Author List</title>
 </head>
 <body>
-<p align="center">
-<a href="/saveauthors">Add Author</a>
-<a href="/">Home</a>
-<hr>
+<div class="container">
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="/saveauthors">Add Author</a>
+    <a class="navbar-brand" href="/">Home</a>
+</nav>
+</div>
 
-<h1>Author list</h1>
-<table>
+
+<p align="center">
+
+<hr>
+<div class="container">
+    <h1>Author list</h1>
+    <div class="row col-md-8 table-responsive">
+        <table id="booksTable" class="table">
+            <thead>
     <tr>
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
 
     </tr>
+            </thead>
+            <thead>
     <tr th:each="author : ${authors}">
         <td th:text="${author.id}">123</td>
         <td th:text="${author.firstName}">Malesela</td>
         <td th:text="${author.lastName}">Team</td>
     </tr>
+            </thead>
 
 
 

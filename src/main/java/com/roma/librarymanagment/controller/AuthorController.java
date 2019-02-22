@@ -1,9 +1,7 @@
 package com.roma.librarymanagment.controller;
 
 import com.roma.librarymanagment.model.Author;
-import com.roma.librarymanagment.repositories.AuthorRepository;
 import com.roma.librarymanagment.services.AuthorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +31,7 @@ public class AuthorController {
     }
 
     @RequestMapping(path = "/saveauthors", method = RequestMethod.POST)
-    private String save(Model model,@ModelAttribute  Author author){
+    private String save(Model model,@ModelAttribute Author author){
 
         final Author author_ = authorService.add(author.getFirstName(),author.getLastName());
         model.addAttribute("authors",new ArrayList<Author>(){{add(author_);}});

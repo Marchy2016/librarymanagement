@@ -2,35 +2,45 @@
 <html lang="en" xmlns="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>Author List</title>
 </head>
 <body>
-
+<p align="center">
 
 <a href="/savepublishers">Add Publisher</a>
 <a href="/">Home</a>
+</p>
 <hr>
 
-
-
-<p align="center">
-<h1>Author list</h1>
-<table>
+<div class="container">
+    <h1>Publishers list</h1>
+    <div class="row col-md-8 table-responsive">
+        <table id="booksTable" class="table">
+            <thead>
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Address</th>
 
     </tr>
+            </thead>
+            <thead>
     <tr th:each="publisher : ${publishers}">
         <td th:text="${publisher.id}">123</td>
         <td th:text="${publisher.name}">Malesela</td>
         <td th:text="${publisher.address}">pennyville</td>
     </tr>
+            </thead>
 
 
 
 </table>
-</p>
+    </div>
+</div>
+
 </body>
 </html>

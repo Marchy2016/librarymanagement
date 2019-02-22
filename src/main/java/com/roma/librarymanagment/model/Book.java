@@ -3,10 +3,6 @@ package com.roma.librarymanagment.model;
 import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -60,11 +56,11 @@ public class Book {
     public Book() {
 
     }
-    public Book(String title, String isbn, Publisher publisherId, Author authorId){
+    public Book(String title, String isbn, Publisher publisher, Author author){
         this.isbn = isbn;
         this.title = title;
-        this.publisher = publisherId;
-        this.author = authorId;
+        this.publisher = publisher;
+        this.author = author;
 
     }
 

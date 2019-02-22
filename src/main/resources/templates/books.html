@@ -2,15 +2,26 @@
 <html lang="en" xmlns="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>Book List</title>
 </head>
 <body>
+<p align="center">
 <a href="/savebook">Add Book</a>
 <a href="/">Home</a>
+</p>
 <hr>
-<p align="center">
-<h1>Book list</h1>
-<table>
+
+
+<div class="container">
+    <h1>Book list</h1>
+    <div class="row col-md-8 table-responsive">
+
+<table id="booksTable" class="table">
+    <thead>
     <tr>
         <th>Title</th>
         <th>ISBN</th>
@@ -18,16 +29,20 @@
         <th>Publisher</th>
 
     </tr>
+    </thead>
+    <thead>
     <tr th:each="book : ${books}">
         <td th:text="${book.title}">123</td>
         <td th:text="${book.isbn}">kmjn001</td>
         <td th:text="${book.author.firstName}">Malesela</td>
         <td th:text="${book.publisher.name}">Team</td>
     </tr>
+    </thead>
 
 
 
 </table>
-</p>
+    </div>
+</div>
 </body>
 </html>

@@ -3,15 +3,32 @@
 <head>
     <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <p align="center">
-<h1>Add Publisher</h1>
-<form action="#" method="post" th:action="@{/savepublishers}" th:object="${publisher}" >
-    <p>Name: <input type="text" th:field="*{name}" /></p>
-    <p>Address: <input type="text" th:field="*{address}" /></p>
-    <p><input type="submit" value="Add" /> <input type="reset" value="Reset" /></p>
-</form>
+    <a href="/">Home</a>
 </p>
+<hr>
+<div class="container">
+    <h3>Publisher Details </h3>
+    <div class="row col-md-8 table-responsive">
+        <form action="#" method="post" th:action="@{/savepublishers}" th:object="${publisher}" >
+            <div class="form-group">
+                <label for="name">Full Names:</label>
+                <input type="text" th:field="*{name}" id ="name" class="form-control" placeholder="Enter name"/>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" th:field="*{address}" id ="address" class="form-control" placeholder="Enter address" />
+            </div>
+            <input type="submit"  class="btn btn-primary" value="Save" />
+            <input type="reset"  class="btn btn-primary" value="Cancel" />
+        </form>
+    </div>
+</div>
 </body>
 </html>
