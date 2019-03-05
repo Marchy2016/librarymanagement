@@ -27,7 +27,7 @@ public class BookController {
         this.publisherService = publisherService;
     }
 
-    @GetMapping({"","/","/menu","/menu.html"})
+    @GetMapping({"/menu","/menu.html"})
     private String index(){
         return "menu";
     }

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Author</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<p align="center">
+    <a href="/menu">Home</a>
+    <a href="/">logout</a>
+</p>
+<hr>
+
+<div class="container">
+    <h3>User Details </h3>
+    <div class="row col-md-8 table-responsive">
+        <form action="#" method="get" th:action="@{/signup}" >
+            <div class="form-group">
+                <label for="userName">User Name</label>
+                <input type="text" th:field="*{param.error}" id ="userName" class="form-control" placeholder="Enter user name"/>
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" th:field="*{param.error}" id ="firstName" class="form-control" placeholder="Enter first name" />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" th:field="*{param.error}" id ="lastName" class="form-control" placeholder="Enter last name" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" th:field="*{param.error}" id ="email" class="form-control" placeholder="Enter email" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" th:field="*{param.error}" id ="password" class="form-control" placeholder="Enter password" />
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" th:field="*{param.error}" id ="confirmPassword" class="form-control" placeholder="Confirm password" />
+            </div>
+            <input type="submit"  class="btn btn-primary" value="Create" />
+            <input type="reset"  class="btn btn-primary" value="Cancel" />
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
