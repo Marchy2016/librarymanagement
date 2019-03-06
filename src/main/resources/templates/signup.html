@@ -18,30 +18,34 @@
 <div class="container">
     <h3>User Details </h3>
     <div class="row col-md-8 table-responsive">
-        <form action="#" method="get" th:action="@{/signup}" >
+        <form action="#" method="get" th:action="@{/signup}" th:object="${user}" >
             <div class="form-group">
                 <label for="userName">User Name</label>
-                <input type="text" th:field="*{param.error}" id ="userName" class="form-control" placeholder="Enter user name"/>
+                <input type="text" th:field="*{name}" id ="userName" class="form-control" placeholder="Enter user name"/>
             </div>
             <div class="form-group">
                 <label for="firstName">First Name</label>
-                <input type="text" th:field="*{param.error}" id ="firstName" class="form-control" placeholder="Enter first name" />
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" th:field="*{param.error}" id ="lastName" class="form-control" placeholder="Enter last name" />
+                <input type="text" th:field="*{username}" id ="firstName" class="form-control" placeholder="Enter first name" />
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" th:field="*{param.error}" id ="email" class="form-control" placeholder="Enter email" />
+                <input type="email" th:field="*{email}" id ="email" class="form-control" placeholder="Enter email" />
             </div>
+
+            <div class="form-group">
+                Role: <select th:field="${user.roles}"  id="dropRole" class="form-control">
+                <option value="0">select role</option>
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+            </select>
+            </div>
+
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" th:field="*{param.error}" id ="password" class="form-control" placeholder="Enter password" />
+                <input type="password" th:field="*{password}" id ="password" class="form-control" placeholder="Enter password" />
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" th:field="*{param.error}" id ="confirmPassword" class="form-control" placeholder="Confirm password" />
+                <input type="password" th:field="*{password}" id ="confirmPassword" class="form-control" placeholder="Confirm password" />
             </div>
             <input type="submit"  class="btn btn-primary" value="Create" />
             <input type="reset"  class="btn btn-primary" value="Cancel" />
@@ -49,12 +53,5 @@
         </form>
     </div>
 </div>
-
-
-
-
-
-
-
 </body>
 </html>
