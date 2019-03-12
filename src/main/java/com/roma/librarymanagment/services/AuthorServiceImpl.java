@@ -17,9 +17,10 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author add(String firstName, String lastName) {
-       if((!"".equals(firstName) && firstName != null) && (!"".equals(lastName) && lastName != null)) {
-            author = new Author(firstName, lastName);
+    public Author add(String firstName, String lastName,String email) {
+       if((!"".equals(firstName) && firstName != null) && (!"".equals(lastName) && lastName != null)
+               && (!"".equals(email) && email != null)) {
+            author = new Author(firstName, lastName,email);
         }
         return authorRepository.save(author);
     }

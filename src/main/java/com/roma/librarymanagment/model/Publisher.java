@@ -3,6 +3,7 @@ package com.roma.librarymanagment.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
@@ -17,10 +18,15 @@ public class Publisher {
     private String name;
     @NotNull
     private String address;
+    @NotNull
+    @Column(unique = true)
+    @Email
+    private String email;
 
-    public Publisher(String name, String address) {
+    public Publisher(String name, String address,String email) {
         this.name = name;
         this.address = address;
+        this.email = email;
     }
     public Publisher(){}
 
@@ -45,6 +51,7 @@ public class Publisher {
         return "Publisher{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

@@ -37,7 +37,7 @@ public class PublisherController {
 
     @RequestMapping(path = "/savepublishers", method = RequestMethod.POST)
     private String addPublisher(Model model, @ModelAttribute Publisher publisher){
-        Publisher publisher1 = publisherService.add(publisher.getName(),publisher.getAddress());
+        Publisher publisher1 = publisherService.add(publisher.getName(),publisher.getAddress(),publisher.getEmail());
         model.addAttribute("publisher", new ArrayList<Publisher>(){{add(publisher1);}});
         return "menu";
 

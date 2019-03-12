@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<p align="center">
+    <a href="/menu">Home</a>
+    <a href="/">logout</a>
+</p>
+<hr>
+
+<div class="container">
+    <h3>Book Details </h3>
+    <div class="row col-md-8 table-responsive">
+
+        <form action="#" method="post" th:action="@{/updateBook/{isbn}(isbn=${book.isbn})}" th:object="${book}" >
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" th:field="*{title}" id ="title" class="form-control" placeholder="Enter title"/>
+            </div>
+            <div class="form-group">
+                <label for="isbn">ISBN:</label>
+                <input type="text" th:field="*{isbn}" id ="isbn" class="form-control" placeholder="Enter isbn" />
+            </div>
+            <div class="form-group">
+                Author: <select th:field="${book.author}"  id="dropAuthors" class="form-control">
+                <option value="0">select author</option>
+                <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName}"></option>
+            </select>
+            </div>
+
+            <div class="form-group">
+                Publisher: <select th:field="${book.publisher}"  id="dropPublisher" class="form-control">
+                <option value="0">select publisher</option>
+                <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}"></option>
+            </select>
+            </div>
+            <div class="form-group">
+                Category: <select th:field="${book.category}"  id="dropCategory" class="form-control">
+                <option value="0">select category</option>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+            </div>
+            <div class="form-group">
+                <label for="edition">Book edition:</label>
+                <input type="text" th:field="*{edition}" id ="edition" class="form-control" placeholder="Enter book edition" />
+            </div>
+            <div class="form-group">
+                <label for="yearPublished">Yeah published:</label>
+                <input type="text" th:field="*{yearPublished}" id ="yearPublished" class="form-control" placeholder="Enter year published" />
+            </div>
+
+            <input type="submit"  class="btn btn-primary" value="Update Book" />
+           </form>
+    </div>
+</div>
+</body>
+</html>

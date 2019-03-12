@@ -41,6 +41,21 @@
             <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}"></option>
         </select>
         </div>
+    <div class="form-group">
+        Category: <select th:field="${book.category}"  id="dropCategory" class="form-control">
+        <option value="0">select category</option>
+        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
+    </div>
+    <div class="form-group">
+        <label for="edition">Book edition:</label>
+        <input type="text" th:field="*{edition}" id ="edition" class="form-control" placeholder="Enter book edition" />
+    </div>
+    <div class="form-group">
+        <label for="yearPublished">Yeah published:</label>
+        <input type="text" th:field="*{yearPublished}" id ="yearPublished" class="form-control" placeholder="Enter year published" />
+    </div>
+
     <input type="submit"  class="btn btn-primary" value="Save" />
     <input type="reset"  class="btn btn-primary" value="Cancel" />
 

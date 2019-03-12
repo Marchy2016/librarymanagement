@@ -33,7 +33,7 @@ public class AuthorController {
     @RequestMapping(path = "/saveauthors", method = RequestMethod.POST)
     private String save(Model model,@ModelAttribute Author author){
 
-        final Author author_ = authorService.add(author.getFirstName(),author.getLastName());
+        final Author author_ = authorService.add(author.getFirstName(),author.getLastName(),author.getEmail());
         model.addAttribute("authors",new ArrayList<Author>(){{add(author_);}});
         return "menu";
     }

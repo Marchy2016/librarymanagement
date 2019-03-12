@@ -4,6 +4,7 @@ package com.roma.librarymanagment.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -20,12 +21,17 @@ public class Author {
     private String firstName;
     @NotNull
     private String lastName;
+    @NotNull
+    @Column(unique = true)
+    @Email
+    private String email;
 
     //@ManyToMany(mappedBy = "authors")
     //private Book books;
-    public Author(String firstName, String lastName){
+    public Author(String firstName, String lastName,String email){
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
 
     }
     public Author(){}
@@ -44,6 +50,8 @@ public class Author {
         return "Author{" +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+
                 '}';
     }
 

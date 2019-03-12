@@ -1,17 +1,21 @@
 package com.roma.librarymanagment.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
 @Data
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Book extends BaseEntity {
     @NotNull
+    @Column(unique = true)
     private String isbn;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "publisher_book",joinColumns = @JoinColumn(name ="book_id"),
@@ -26,42 +30,43 @@ public class Book {
     private Author author;
     @NotNull
     private String title;
+    @OneToOne
+    @JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinColumn(name = "category_id")
+    private Category category;
+    private String edition;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "year_published")
+    @DateTimeFormat(pattern="YYYY")
+    private Date yearPublished;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return id != null ? id.equals(book.id) :  book.id == null;
+    public Book(String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished) {
+        this.isbn = isbn;
+        this.publisher = publisher;
+        this.author = author;
+        this.title = title;
+        this.category = category;
+        this.edition = edition;
+        this.yearPublished = yearPublished;
     }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-
 
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", authors=" + author +
+                ", publisher=" + publisher +
+                ", author=" + author +
+                ", title='" + title + '\'' +
+                ", category=" + category +
+                ", edition='" + edition + '\'' +
+                ", yearPublished=" + yearPublished +
                 '}';
     }
 
     public Book() {
 
     }
-    public Book(String title, String isbn, Publisher publisher, Author author){
-        this.isbn = isbn;
-        this.title = title;
-        this.publisher = publisher;
-        this.author = author;
 
-    }
 
 }

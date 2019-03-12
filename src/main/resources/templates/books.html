@@ -19,7 +19,7 @@
 
 <div class="container">
     <h1>Book list</h1>
-    <div class="row col-md-8 table-responsive">
+    <div class="row col-md-12 table-responsive">
 
 <table id="booksTable" class="table">
     <thead>
@@ -28,6 +28,10 @@
         <th>ISBN</th>
         <th>Author</th>
         <th>Publisher</th>
+        <th>Category</th>
+        <th>Edition</th>
+        <th>Year published</th>
+        <th>Action</th>
 
     </tr>
     </thead>
@@ -37,6 +41,10 @@
         <td th:text="${book.isbn}">kmjn001</td>
         <td th:text="${book.author.firstName}">Malesela</td>
         <td th:text="${book.publisher.name}">Team</td>
+        <td th:text="${book.category.name}">IT</td>
+        <td th:text="${book.edition}">5th</td>
+        <td th:text="${#dates.format(book.yearPublished,'yyyy')}">2018</td>
+        <td><a th:href="@{/updateBook/{isbn}(isbn=${book.isbn})}" class="btn btn-success">Edit</a><a th:href="@{/deleteBook/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
     </tr>
     </thead>
 

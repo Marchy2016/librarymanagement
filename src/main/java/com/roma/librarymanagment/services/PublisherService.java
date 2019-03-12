@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PublisherService {
 
-   Publisher add(String name, String address);
+   Publisher add(String name, String address,String email);
    List<Publisher> findAll();
 
 
