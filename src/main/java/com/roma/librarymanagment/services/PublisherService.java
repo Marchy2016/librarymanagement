@@ -8,6 +8,7 @@ public interface PublisherService {
 
    Publisher add(String name, String address,String email);
    List<Publisher> findAll();
+   Publisher findById(Long id);
 
 
 

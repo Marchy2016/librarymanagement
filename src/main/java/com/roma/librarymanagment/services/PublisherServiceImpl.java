@@ -25,4 +25,7 @@ public class PublisherServiceImpl implements PublisherService {
     public List<Publisher> findAll(){
         return publisherRepository.findAll();
     }
+    public Publisher findById(Long id){
+        return publisherRepository.findById(id).isPresent() ? publisherRepository.findById(id).get() : null;
+    }
 }

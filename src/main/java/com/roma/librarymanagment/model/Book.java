@@ -5,10 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
+
 
 
 @Entity
@@ -19,7 +18,7 @@ public class Book extends BaseEntity {
     private String isbn;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "publisher_book",joinColumns = @JoinColumn(name ="book_id"),
-            inverseJoinColumns = @JoinColumn(name = "publisher_id") )
+            inverseJoinColumns = @JoinColumn(name = "publisher_id"))
     @NotNull
     private Publisher publisher;
 
@@ -68,5 +67,24 @@ public class Book extends BaseEntity {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Book book = (Book) o;
+        return Objects.equals(isbn, book.isbn) &&
+                Objects.equals(publisher, book.publisher) &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(title, book.title) &&
+                Objects.equals(category, book.category) &&
+                Objects.equals(edition, book.edition) &&
+                Objects.equals(yearPublished, book.yearPublished);
+    }
 
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), isbn, publisher, author, title, category, edition, yearPublished);
+    }
 }

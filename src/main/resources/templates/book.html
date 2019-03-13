@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <title>Author List</title>
+    <title>Book List</title>
 </head>
 <body>
 <div class="container">
@@ -16,12 +16,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="nav-item nav-link" href="/savepublishers">Add Publisher</a>
+        <a class="nav-item nav-link" href="/savebook">Add Book</a>
         <a class="nav-item nav-link" href="/menu">Home</a>
         <a class="nav-item nav-link" href="/">logout</a>
 
         <div class="ml-auto p-2">
-            <form class="form-inline">
+            <form class="form-inline"">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -30,34 +30,41 @@
 </div>
 
 <hr>
-
 <div class="container">
-    <h1>Publishers list</h1>
-    <div class="row col-md-8 table-responsive">
-        <table id="booksTable" class="table table-hover">
-            <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Email</th>
+    <h1>{{book.title}}</h1>
+    <div class="row col-md-12 table-responsive">
 
-    </tr>
+        <table id="booksTable" class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Author</th>
+                <th>Publisher</th>
+                <th>Category</th>
+                <th>Edition</th>
+                <th>Year published</th>
+                <th>Action</th>
+
+            </tr>
             </thead>
             <thead>
-    <tr th:each="publisher : ${publishers}">
-        <td th:text="${publisher.id}">123</td>
-        <td th:text="${publisher.name}">Malesela</td>
-        <td th:text="${publisher.address}">pennyville</td>
-        <td th:text="${publisher.email}">team@gmail.com</td>
-    </tr>
+            <tr th:object="${book}">
+                <td th:text="${title}">123</td>
+                <td th:text="${isbn}">kmjn001</td>
+                <td th:text="${author.firstName}">Malesela</td>
+                <td th:text="${publisher.name}">Team</td>
+                <td th:text="${category.name}">IT</td>
+                <td th:text="${edition}">5th</td>
+                <td th:text="${#dates.format(yearPublished,'yyyy')}">2018</td>
+                <td><a th:href="@{/updateBook/{isbn}(isbn=${book.isbn})}" class="btn btn-success">Edit</a><a th:href="@{/deleteBook/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
+            </tr>
             </thead>
 
 
 
-</table>
+        </table>
     </div>
 </div>
-
 </body>
 </html>

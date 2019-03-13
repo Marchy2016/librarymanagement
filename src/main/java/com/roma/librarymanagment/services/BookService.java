@@ -16,6 +16,8 @@ public interface BookService{
     void deleteById(Long id);
     Book updateBook(String isbn,Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished);
     Book findByIsbn(String isbn);
+    Book findBookByTitle(String title);
+    List<Book> findBooksByPublisher(Long id);
     Book add(String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished);
 
 }

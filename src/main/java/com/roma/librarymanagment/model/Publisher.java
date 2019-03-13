@@ -22,6 +22,8 @@ public class Publisher {
     @Column(unique = true)
     @Email
     private String email;
+    @OneToMany
+    private Set<Book> book = new HashSet<>();
 
     public Publisher(String name, String address,String email) {
         this.name = name;

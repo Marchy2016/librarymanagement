@@ -3,25 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>Book List</title>
 </head>
 <body>
-<p align="center">
-<a href="/savebook">Add Book</a>
-<a href="/menu">Home</a>
-    <a href="/">logout</a>
-</p>
+<div class="container">
+    <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;" >
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="nav-item nav-link" href="/savebook">Add Book</a>
+        <a class="nav-item nav-link" href="/menu">Home</a>
+        <a class="nav-item nav-link" href="/">logout</a>
+
+        <div class="ml-auto p-2">
+            <form class="form-inline" method="get">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</div>
+
 <hr>
-
-
 <div class="container">
     <h1>Book list</h1>
-    <div class="row col-md-12 table-responsive">
 
-<table id="booksTable" class="table">
+
+
+<table class="table table-hover table-sm">
     <thead>
     <tr>
         <th>Title</th>
@@ -40,10 +54,10 @@
         <td th:text="${book.title}">123</td>
         <td th:text="${book.isbn}">kmjn001</td>
         <td th:text="${book.author.firstName}">Malesela</td>
-        <td th:text="${book.publisher.name}">Team</td>
+        <td><a th:href="@{/publisher/books/{id}(id=${book.publisher.id})}" th:text="${book.publisher.name}">Team</a></td>
         <td th:text="${book.category.name}">IT</td>
         <td th:text="${book.edition}">5th</td>
-        <td th:text="${#dates.format(book.yearPublished,'yyyy')}">2018</td>
+        <td th:text="${#dates.format(book.yearPublished,'dd/MM/yyyy')}">2018</td>
         <td><a th:href="@{/updateBook/{isbn}(isbn=${book.isbn})}" class="btn btn-success">Edit</a><a th:href="@{/deleteBook/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
     </tr>
     </thead>

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +43,13 @@ public class BookController {
         model.addAttribute("books", bookService.findAll());
         return "books";
 
+    }
+    @RequestMapping(path = "/publisher/books/{publisher}", method = RequestMethod.GET)
+    private String listBooksByPublisher(Model model,@PathVariable("publisher") Publisher publisher){
+        Publisher publisher1 = publisherService.findById(publisher.getId());
+        List<Book> books = bookService.findBooksByPublisher(publisher1.getId());
+        model.addAttribute("books", books);
+        return "publisherBooks";
     }
 
     @RequestMapping(path = "/savebook", method = RequestMethod.GET)
@@ -96,6 +104,15 @@ public class BookController {
     @RequestMapping(path = "/index", method = RequestMethod.GET)
     private String getIndex(){
         return "index";
+    }
+
+    @RequestMapping(path = "/searchBook/{title}", method = RequestMethod.GET)
+    private String getBookByTitle(Model model,@PathVariable String title){
+        Book book = bookService.findBookByTitle(title);
+        if(book != null){
+            model.addAttribute("book", book);
+        }
+        return "book";
     }
 
 }

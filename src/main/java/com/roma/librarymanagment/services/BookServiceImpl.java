@@ -11,6 +11,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
     private Book book;
     private Mapper mapper;
+    private EntityManager em;
 
     public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -82,5 +84,15 @@ public class BookServiceImpl implements BookService {
     }
     public Book findByIsbn(String isbn){
         return bookRepository.findByIsbn(isbn);
+    }
+    public Book findBookByTitle(String title){
+        return bookRepository.findBookByTitle(title);
+    }
+    public  List<Book> findBooksByPublisher(Long id){
+      List<Book> books = bookRepository.findBooksByPublisher(id);
+        if(books != null){
+            return books;
+        }
+        return null;
     }
 }
