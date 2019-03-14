@@ -47,9 +47,18 @@ public class BookController {
     @RequestMapping(path = "/publisher/books/{publisher}", method = RequestMethod.GET)
     private String listBooksByPublisher(Model model,@PathVariable("publisher") Publisher publisher){
         Publisher publisher1 = publisherService.findById(publisher.getId());
-        List<Book> books = bookService.findBooksByPublisher(publisher1.getId());
+        List<Book> books = bookService.findBooksByPublisherId(publisher1.getId());
         model.addAttribute("books", books);
+        model.addAttribute("publisher",publisher1);
         return "publisherBooks";
+    }
+    @RequestMapping(path = "/author/books/{author}", method = RequestMethod.GET)
+    private String listBooksByAuthor(Model model,@PathVariable("author") Author author){
+        Author author1 = authorService.findById(author.getId());
+        List<Book> books = bookService.findBooksByAuthorId(author1.getId());
+        model.addAttribute("books", books);
+        model.addAttribute("author", author);
+        return "authorBooks";
     }
 
     @RequestMapping(path = "/savebook", method = RequestMethod.GET)

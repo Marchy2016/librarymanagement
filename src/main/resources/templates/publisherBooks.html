@@ -31,7 +31,7 @@
 
 <hr>
 <div class="container">
-    <h1 th:text="${book.publisher.name}">{{book.publisher.name}}</h1>
+    <h1 th:text="${publisher.name}"> Books</h1>
     <div class="row col-md-12 table-responsive">
 
         <table id="booksTable" class="table">
@@ -40,7 +40,6 @@
                 <th>Title</th>
                 <th>ISBN</th>
                 <th>Author</th>
-                <th>Publisher</th>
                 <th>Category</th>
                 <th>Edition</th>
                 <th>Year published</th>
@@ -53,7 +52,6 @@
                 <td th:text="${book.title}">123</td>
                 <td th:text="${book.isbn}">kmjn001</td>
                 <td th:text="${book.author.firstName}">Malesela</td>
-                <td><a href="#" th:text="${book.publisher.name}">Team</a></td>
                 <td th:text="${book.category.name}">IT</td>
                 <td th:text="${book.edition}">5th</td>
                 <td th:text="${#dates.format(book.yearPublished,'yyyy')}">2018</td>

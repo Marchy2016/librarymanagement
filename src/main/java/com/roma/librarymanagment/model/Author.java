@@ -7,7 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -25,6 +27,8 @@ public class Author {
     @Column(unique = true)
     @Email
     private String email;
+    @OneToMany
+    private Set<Book> book = new HashSet<>();
 
     //@ManyToMany(mappedBy = "authors")
     //private Book books;

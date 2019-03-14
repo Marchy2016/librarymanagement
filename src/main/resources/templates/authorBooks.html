@@ -16,7 +16,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="nav-item nav-link" href="/savebook">Add Book</a>
+        <a class="nav-item nav-link" href="/books">Books</a>
         <a class="nav-item nav-link" href="/menu">Home</a>
         <a class="nav-item nav-link" href="/">logout</a>
 
@@ -31,40 +31,37 @@
 
 <hr>
 <div class="container">
-    <h1>Book list</h1>
+    <h1 th:text="${author.firstName}"> </h1>
+       <div class="row col-md-12 table-responsive">
+
+        <table id="booksTable" class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Publisher</th>
+                <th>Category</th>
+                <th>Edition</th>
+                <th>Year published</th>
+                <th>Action</th>
+
+            </tr>
+            </thead>
+            <thead>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.title}">123</td>
+                <td th:text="${book.isbn}">kmjn001</td>
+                <td><a th:href="@{/publisher/books/{id}(id=${book.publisher.id})}" th:text="${book.publisher.name}">Team</a></td>
+                <td th:text="${book.category.name}">IT</td>
+                <td th:text="${book.edition}">5th</td>
+                <td th:text="${#dates.format(book.yearPublished,'yyyy')}">2018</td>
+                <td><a th:href="@{/updateBook/{isbn}(isbn=${book.isbn})}" class="btn btn-success">Edit</a><a th:href="@{/deleteBook/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
+            </tr>
+            </thead>
 
 
 
-<table class="table table-hover table-sm">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>ISBN</th>
-        <th>Author</th>
-        <th>Publisher</th>
-        <th>Category</th>
-        <th>Edition</th>
-        <th>Year published</th>
-        <th>Action</th>
-
-    </tr>
-    </thead>
-    <thead>
-    <tr th:each="book : ${books}">
-        <td th:text="${book.title}">123</td>
-        <td th:text="${book.isbn}">kmjn001</td>
-        <td><a th:href="@{/author/books/{id}(id=${book.author.id})}" th:text="${book.author.firstName}">Malesela</a></td>
-        <td><a th:href="@{/publisher/books/{id}(id=${book.publisher.id})}" th:text="${book.publisher.name}">Team</a></td>
-        <td th:text="${book.category.name}">IT</td>
-        <td th:text="${book.edition}">5th</td>
-        <td th:text="${#dates.format(book.yearPublished,'dd/MM/yyyy')}">2018</td>
-        <td><a th:href="@{/updateBook/{isbn}(isbn=${book.isbn})}" class="btn btn-success">Edit</a><a th:href="@{/deleteBook/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
-    </tr>
-    </thead>
-
-
-
-</table>
+        </table>
     </div>
 </div>
 </body>

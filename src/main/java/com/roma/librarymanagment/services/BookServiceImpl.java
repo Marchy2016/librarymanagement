@@ -8,24 +8,24 @@ import com.roma.librarymanagment.repositories.BookRepository;
 import lombok.extern.slf4j.XSlf4j;
 import org.dozer.Mapper;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @XSlf4j
 @Service
 public class BookServiceImpl implements BookService {
 
     private BookRepository bookRepository;
-    private Book book;
     private Mapper mapper;
-    private EntityManager em;
-
     public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
@@ -71,7 +71,6 @@ public class BookServiceImpl implements BookService {
     }
     public  Book updateBook(String isbn,Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
         Book book = findByIsbn(isbn);
-      //  if(book.getTitle() != title || book.getAuthor() != author || book.getCategory() != category || book.getEdition() != edition || book.getYearPublished() != yearPublished ){
             book.setPublisher(publisher);
             book.setAuthor(author);
             book.setTitle(title);
@@ -88,11 +87,28 @@ public class BookServiceImpl implements BookService {
     public Book findBookByTitle(String title){
         return bookRepository.findBookByTitle(title);
     }
-    public  List<Book> findBooksByPublisher(Long id){
-      List<Book> books = bookRepository.findBooksByPublisher(id);
-        if(books != null){
-            return books;
+    @Override
+    public  List<Book> findBooksByPublisherId(Long id){
+        List<Book> books = bookRepository.findAll();
+        List<Long> bookIds = new ArrayList<>();
+        for(Book book : books){
+            bookIds.add(book.getPublisher().getId());
         }
-        return null;
+       return bookRepository.findBooksByPublisherId(id,bookIds);
+
+
     }
+    @Override
+    public  List<Book> findBooksByAuthorId(Long id){
+        List<Book> books = bookRepository.findAll();
+        List<Long> bookAuthorIds = new ArrayList<>();
+        for(Book authorBook : books){
+            bookAuthorIds.add(authorBook.getAuthor().getId());
+        }
+        return bookRepository.findBooksByAuthorId(id,bookAuthorIds);
+    }
+
+
+
+
 }

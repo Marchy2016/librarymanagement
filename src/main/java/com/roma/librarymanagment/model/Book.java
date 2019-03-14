@@ -37,7 +37,7 @@ public class Book extends BaseEntity {
     private String edition;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "year_published")
-    @DateTimeFormat(pattern="YYYY")
+    @DateTimeFormat(pattern="dd/MM/YYYY")
     private Date yearPublished;
 
     public Book(String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished) {
