@@ -44,7 +44,7 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void add() {
+    public void addBook() {
         Book book = new Book("HTP001",new Publisher(),new Author(), HOW_TO_PROGRAM,new Category(),"2nd Edition",new Date(20/02/2018));
         when(bookRepository.save(book)).thenReturn(book);
         Book book1 = bookRepository.save(book);
@@ -53,7 +53,7 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void findAll() {
+    public void findAllBooks() {
         Book book1 = new Book();
         Book book2 = new Book();
         Book book3 = new Book();
