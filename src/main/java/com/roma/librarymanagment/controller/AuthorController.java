@@ -21,17 +21,17 @@ public class AuthorController {
     @RequestMapping(path = "/authors", method = RequestMethod.GET)
     public String listAuthors(Model model){
         model.addAttribute("authors",authorService.findAll());
-        return "authors";
+        return "authors.html";
     }
     @RequestMapping(path = "/saveauthors", method = RequestMethod.GET)
-    private String saveBook(Model model){
+    private String saveAuthor(Model model){
 
       model.addAttribute("author",new Author());
         return "addAuthors";
     }
 
     @RequestMapping(path = "/saveauthors", method = RequestMethod.POST)
-    private String save(Model model,@ModelAttribute Author author){
+    private String saveAuthor(Model model,@ModelAttribute Author author){
 
         final Author author_ = authorService.add(author.getFirstName(),author.getLastName(),author.getEmail());
         model.addAttribute("authors",new ArrayList<Author>(){{add(author_);}});

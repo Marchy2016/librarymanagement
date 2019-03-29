@@ -73,6 +73,13 @@ public class BookController {
         model.addAttribute("categories", categories);
         return "addBooks";
     }
+    @RequestMapping(path = "/savebook", method = RequestMethod.POST)
+    private String saveBook(Model model, String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
+        final Book book = bookService.add(isbn,publisher,author,title, category,edition,yearPublished);
+        model.addAttribute("book", book);
+        return "redirect:/searchBookById/" + book.getId();
+    }
+
 
     @RequestMapping(path = "/deleteBook/{id}", method = RequestMethod.GET)
     private String deleteBook(@PathVariable Long id){
@@ -94,20 +101,10 @@ public class BookController {
     }
 
     @RequestMapping(path = "/updateBook/{isbn}", method = RequestMethod.POST)
-    private String updateBook(@PathVariable String isbn,Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
-        bookService.updateBook(isbn,publisher,author,title, category,edition,yearPublished);
-        return "menu";
-    }
-
-
-
-
-
-    @RequestMapping(path = "/savebook", method = RequestMethod.POST)
-    private String saveBook(Model model, String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
-        final Book book = bookService.add(isbn,publisher,author,title, category,edition,yearPublished);
+    private String updateBook(Model model,@PathVariable String isbn,Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
+        Book book = bookService.updateBook(isbn,publisher,author,title, category,edition,yearPublished);
         model.addAttribute("book", book);
-       return "menu";
+        return "redirect:/searchBookById/" + book.getId();
     }
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
@@ -120,6 +117,16 @@ public class BookController {
         Book book = bookService.findBookByTitle(title);
         if(book != null){
             model.addAttribute("book", book);
+        }
+        return "book";
+    }
+
+    @RequestMapping(path = "/searchBookById/{id}", method = RequestMethod.GET)
+    private String getBookById(Model model,@PathVariable Long id){
+        Book book = bookService.findBookById(id);
+        if(book != null){
+            model.addAttribute("book", book);
+            System.out.println("Book" + book);
         }
         return "book";
     }

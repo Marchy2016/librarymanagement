@@ -15,13 +15,13 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <a class="nav-item nav-link" href="/books">Books</a>
         <a class="nav-item nav-link" href="/savebook">Add Book</a>
         <a class="nav-item nav-link" href="/menu">Home</a>
         <a class="nav-item nav-link" href="/">logout</a>
 
         <div class="ml-auto p-2">
-            <form class="form-inline"">
+            <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -31,7 +31,7 @@
 
 <hr>
 <div class="container">
-    <h1>{{book.title}}</h1>
+    <h1 th:text ="${book.title}">programming</h1>
     <div class="row col-md-12 table-responsive">
 
         <table id="booksTable" class="table">
@@ -50,13 +50,13 @@
             </thead>
             <thead>
             <tr th:object="${book}">
-                <td th:text="${title}">123</td>
-                <td th:text="${isbn}">kmjn001</td>
-                <td th:text="${author.firstName}">Malesela</td>
-                <td th:text="${publisher.name}">Team</td>
-                <td th:text="${category.name}">IT</td>
-                <td th:text="${edition}">5th</td>
-                <td th:text="${#dates.format(yearPublished,'yyyy')}">2018</td>
+                <td th:text="${book.title}">123</td>
+                <td th:text="${book.isbn}">kmjn001</td>
+                <td th:text="${book.author.firstName}">Malesela</td>
+                <td th:text="${book.publisher.name}">Team</td>
+                <td th:text="${book.category.name}">IT</td>
+                <td th:text="${book.edition}">5th</td>
+                <td th:text="${#dates.format(book.yearPublished,'yyyy')}">2018</td>
                 <td><a th:href="@{/updateBook/{isbn}(isbn=${book.isbn})}" class="btn btn-success">Edit</a><a th:href="@{/deleteBook/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
             </tr>
             </thead>
