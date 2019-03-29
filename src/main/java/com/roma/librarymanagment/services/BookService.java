@@ -17,6 +17,7 @@ public interface BookService{
     Book updateBook(String isbn,Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished);
     Book findByIsbn(String isbn);
     Book findBookByTitle(String title);
+    Book findBookById(Long id);
     List<Book> findBooksByPublisherId(Long id);
     List<Book> findBooksByAuthorId(Long id);
 
