@@ -36,7 +36,7 @@ public class AuthorControllerTest {
         when(authorService.add("","","")).thenReturn(author);
         mockMvc.perform(post("/saveauthors"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("menu"));
+                .andExpect(view().name("author"));
     }
 
     @Before

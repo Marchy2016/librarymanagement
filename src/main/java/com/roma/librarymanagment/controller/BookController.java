@@ -46,7 +46,7 @@ public class BookController {
     }
     @RequestMapping(path = "/publisher/books/{publisher}", method = RequestMethod.GET)
     private String listBooksByPublisher(Model model,@PathVariable("publisher") Publisher publisher){
-        Publisher publisher1 = publisherService.findById(publisher.getId());
+        Publisher publisher1 = publisherService.findPublisherById(publisher.getId());
         List<Book> books = bookService.findBooksByPublisherId(publisher1.getId());
         model.addAttribute("books", books);
         model.addAttribute("publisher",publisher1);
@@ -54,7 +54,7 @@ public class BookController {
     }
     @RequestMapping(path = "/author/books/{author}", method = RequestMethod.GET)
     private String listBooksByAuthor(Model model,@PathVariable("author") Author author){
-        Author author1 = authorService.findById(author.getId());
+        Author author1 = authorService.findAuthorById(author.getId());
         List<Book> books = bookService.findBooksByAuthorId(author1.getId());
         model.addAttribute("books", books);
         model.addAttribute("author", author);
@@ -65,9 +65,9 @@ public class BookController {
     private String saveBook(Model model){
         model.addAttribute("book",new Book());
         List<Author>  authors = authorService.findAll();
-        List<Category> categories = categoryService.findAll();
+        List<Category> categories = categoryService.listCategories();
         System.out.println("Authors :" + authors.toString());
-        List<Publisher> publishers = publisherService.findAll();
+        List<Publisher> publishers = publisherService.listPublishers();
         model.addAttribute("publishers", publishers);
         model.addAttribute("authors", authors);
         model.addAttribute("categories", categories);
@@ -84,16 +84,16 @@ public class BookController {
     @RequestMapping(path = "/deleteBook/{id}", method = RequestMethod.GET)
     private String deleteBook(@PathVariable Long id){
         bookService.deleteById(id);
-        return "menu";
+        return "redirect:/books";
     }
 
     @RequestMapping(path = "/updateBook/{isbn}", method = RequestMethod.GET)
     private String getBook(Model model,@PathVariable String isbn){
         model.addAttribute("book", bookService.findByIsbn(isbn));
         List<Author>  authors = authorService.findAll();
-        List<Category> categories = categoryService.findAll();
+        List<Category> categories = categoryService.listCategories();
         System.out.println("Authors :" + authors.toString());
-        List<Publisher> publishers = publisherService.findAll();
+        List<Publisher> publishers = publisherService.listPublishers();
         model.addAttribute("publishers", publishers);
         model.addAttribute("authors", authors);
         model.addAttribute("categories", categories);
@@ -126,7 +126,6 @@ public class BookController {
         Book book = bookService.findBookById(id);
         if(book != null){
             model.addAttribute("book", book);
-            System.out.println("Book" + book);
         }
         return "book";
     }

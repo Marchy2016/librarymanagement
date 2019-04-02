@@ -24,11 +24,25 @@ public class AuthorServiceImpl implements AuthorService {
         }
         return authorRepository.save(author);
     }
+    public Author updateAuthor(Long id, String firstName, String lastName,String email){
+        Author  author = findAuthorById(id);
+        if(author != null) {
+            author.setFirstName(firstName);
+            author.setLastName(lastName);
+            author.setEmail(email);
+           }
+      return authorRepository.save(author);
+
+    }
     public List<Author> findAll(){
         return authorRepository.findAll();
     }
 
-    public Author findById(Long id){
+    public Author findAuthorById(Long id){
         return authorRepository.findById(id).isPresent() ? authorRepository.findById(id).get() : null;
+    }
+    public void deleteAuthor(Long id) {
+        Author author = findAuthorById(id);
+        authorRepository.delete(author);
     }
 }

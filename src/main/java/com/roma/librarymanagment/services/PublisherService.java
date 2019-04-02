@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface PublisherService {
 
-   Publisher add(String name, String address,String email);
-   List<Publisher> findAll();
-   Publisher findById(Long id);
+   Publisher addPublisher(String name, String address,String email);
+   List<Publisher> listPublishers();
+   Publisher findPublisherById(Long id);
+   Publisher updatePublisher(Long id, String name, String address,String email);
+   void deletePublisher(Long id);
 
 
 

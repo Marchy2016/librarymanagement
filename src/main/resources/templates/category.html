@@ -16,6 +16,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <a class="nav-item nav-link" href="/categories">Categories</a>
         <a class="nav-item nav-link" href="/savecategory">Add Category</a>
         <a class="nav-item nav-link" href="/menu">Home</a>
         <a class="nav-item nav-link" href="/">logout</a>
@@ -31,7 +32,7 @@
 
 <hr>
 <div class="container">
-    <h1>Categories list</h1>
+    <h1>Category</h1>
     <div class="row col-md-8 table-responsive">
         <table id="booksTable" class="table">
             <thead>
@@ -41,7 +42,7 @@
             </tr>
             </thead>
             <thead>
-            <tr th:each="category : ${categories}">
+            <tr th:object="${category}">
                 <td th:text="${category.name}">123</td>
                 <td><a th:href="@{/findcategorybyid/{id}(id=${category.id})}" class="btn btn-success">Edit</a>
                     <a th:href="@{/deletecategory/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>

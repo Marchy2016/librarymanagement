@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org" >
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <title>Category List</title>
 </head>
 <body>
 <div class="container">
@@ -16,7 +16,6 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="nav-item nav-link" href="/savecategory">Add Category</a>
         <a class="nav-item nav-link" href="/menu">Home</a>
         <a class="nav-item nav-link" href="/">logout</a>
 
@@ -31,29 +30,29 @@
 
 <hr>
 <div class="container">
-    <h1>Categories list</h1>
+    <h3>Publisher Details </h3>
     <div class="row col-md-8 table-responsive">
-        <table id="booksTable" class="table">
-            <thead>
-            <tr>
-                <th>Category</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <thead>
-            <tr th:each="category : ${categories}">
-                <td th:text="${category.name}">123</td>
-                <td><a th:href="@{/findcategorybyid/{id}(id=${category.id})}" class="btn btn-success">Edit</a>
-                    <a th:href="@{/deletecategory/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-            </thead>
-
-
-
-        </table>
+        <form action="#" method="post" th:action="@{/updatepublisher}" th:object="${publisher}" >
+            <div class="form-group">
+                <label for="id">ID:</label>
+                <input type="text" th:field="*{id}" id ="id" class="form-control" placeholder=""/>
+            </div>
+            <div class="form-group">
+                <label for="name">Full Names:</label>
+                <input type="text" th:field="*{name}" id ="name" class="form-control" placeholder="Enter name"/>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" th:field="*{address}" id ="address" class="form-control" placeholder="Enter address" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" th:field="*{email}" id ="email" class="form-control" placeholder="Enter email" />
+            </div>
+            <input type="submit"  class="btn btn-primary" value="Save" />
+            <input type="reset"  class="btn btn-primary" value="Cancel" />
+        </form>
     </div>
 </div>
-
 </body>
 </html>

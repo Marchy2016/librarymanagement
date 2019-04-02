@@ -37,19 +37,22 @@
         <table id="booksTable" class="table table-hover">
             <thead>
     <tr>
-        <th>ID</th>
+
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
+        <th>Action</th>
 
     </tr>
             </thead>
             <thead>
     <tr th:each="author : ${authors}">
-        <td th:text="${author.id}">123</td>
-        <td th:text="${author.firstName}">Malesela</td>
+
+        <td> <a th:text="${author.firstName}">Malesela</a></td>
         <td th:text="${author.lastName}">Tema</td>
         <td th:text="${author.email}">team@gmail.com</td>
+        <td><a th:href="@{/findAuthorById/{id}(id= ${author.id})}" class="btn btn-success">Edit</a>
+            <a th:href="@{/deleteauthor/{id}(id=${author.id})}" class="btn btn-danger">Delete</a></td>
     </tr>
             </thead>
 
