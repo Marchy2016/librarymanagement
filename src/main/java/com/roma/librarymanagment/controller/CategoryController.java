@@ -1,12 +1,9 @@
 package com.roma.librarymanagment.controller;
 
+import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Category;
 import com.roma.librarymanagment.services.CategoryService;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,14 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@Configuration
-@PropertySource("classpath:libraryconfig.properties")
-@ConfigurationProperties(prefix = "book")
-@Setter
-@Getter
 public class CategoryController {
-    CategoryService categoryService;
-    private String displayCategories;
+    private CategoryService categoryService;
+    @Autowired
+    BookProsConfig bookProsConfig;
+
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
@@ -52,7 +46,7 @@ public class CategoryController {
     @RequestMapping(path = "/deletecategory/{id}", method = RequestMethod.GET)
     public String deleteCategory(Model model, @PathVariable Long id){
        categoryService.deleteCategory(id);
-        return displayCategories;
+        return bookProsConfig.getDisplayCategories();
     }
 
     @RequestMapping(path = "/findcategorybyid/{id}", method = RequestMethod.GET)

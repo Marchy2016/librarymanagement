@@ -1,29 +1,20 @@
 package com.roma.librarymanagment.controller;
 
+import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.services.AuthorService;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @Controller
-@Configuration
-@PropertySource("classpath:libraryconfig.properties")
-@ConfigurationProperties(prefix = "book")
-@Setter
-@Getter
 public class AuthorController {
 
     private AuthorService authorService;
     private  Author author;
-    private String authorsRedirect;
+    @Autowired
+    private BookProsConfig bookProsConfig;
 
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
@@ -70,7 +61,7 @@ public class AuthorController {
     @RequestMapping(path = "/deleteauthor/{id}", method = RequestMethod.GET)
     private String deleteAuthor(Model model,@PathVariable Long id){
         authorService.deleteAuthor(id);
-      return authorsRedirect;
+      return bookProsConfig.getDisplayAuthors();
     }
 
 
