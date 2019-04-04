@@ -2,6 +2,11 @@ package com.roma.librarymanagment.controller;
 
 import com.roma.librarymanagment.model.Publisher;
 import com.roma.librarymanagment.services.PublisherService;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,13 +14,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
-
 @Controller
+@Configuration
+@PropertySource("classpath:libraryconfig.properties")
+@ConfigurationProperties(prefix = "book")
+@Setter
+@Getter
 public class PublisherController {
 
 
     private PublisherService publisherService;
+    private String displayPublishers;
 
       public PublisherController(PublisherService publisherService) {
         this.publisherService = publisherService;
@@ -64,7 +73,7 @@ public class PublisherController {
     @RequestMapping(path = "/deletepublisher/{id}", method = RequestMethod.GET)
     private String deletePublisher(Model model, @PathVariable Long id){
           publisherService.deletePublisher(id);
-        return "redirect:/publishers";
+        return displayPublishers;
     }
 
 

@@ -8,22 +8,32 @@ import com.roma.librarymanagment.services.AuthorService;
 import com.roma.librarymanagment.services.BookService;
 import com.roma.librarymanagment.services.CategoryService;
 import com.roma.librarymanagment.services.PublisherService;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Controller
+@Configuration
+@PropertySource("classpath:libraryconfig.properties")
+@ConfigurationProperties(prefix = "book")
+@Setter
+@Getter
 public class BookController {
 
     private BookService bookService;
     private AuthorService authorService;
     private PublisherService publisherService;
     private CategoryService categoryService;
+    private String displayBook;
+    private String displayBooks;
 
     public BookController(BookService bookService, AuthorService authorService, PublisherService publisherService, CategoryService categoryService) {
         this.bookService = bookService;
@@ -77,14 +87,14 @@ public class BookController {
     private String saveBook(Model model, String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
         final Book book = bookService.add(isbn,publisher,author,title, category,edition,yearPublished);
         model.addAttribute("book", book);
-        return "redirect:/searchBookById/" + book.getId();
+        return displayBook + book.getId();
     }
 
 
     @RequestMapping(path = "/deleteBook/{id}", method = RequestMethod.GET)
     private String deleteBook(@PathVariable Long id){
         bookService.deleteById(id);
-        return "redirect:/books";
+        return displayBooks;
     }
 
     @RequestMapping(path = "/updateBook/{isbn}", method = RequestMethod.GET)
@@ -104,7 +114,7 @@ public class BookController {
     private String updateBook(Model model,@PathVariable String isbn,Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
         Book book = bookService.updateBook(isbn,publisher,author,title, category,edition,yearPublished);
         model.addAttribute("book", book);
-        return "redirect:/searchBookById/" + book.getId();
+        return displayBook + book.getId();
     }
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
