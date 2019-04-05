@@ -9,7 +9,6 @@ import com.roma.librarymanagment.services.AuthorService;
 import com.roma.librarymanagment.services.BookService;
 import com.roma.librarymanagment.services.CategoryService;
 import com.roma.librarymanagment.services.PublisherService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,14 +23,14 @@ public class BookController {
     private AuthorService authorService;
     private PublisherService publisherService;
     private CategoryService categoryService;
-    @Autowired
     private BookProsConfig bookProsConfig;
 
-    public BookController(BookService bookService, AuthorService authorService, PublisherService publisherService, CategoryService categoryService) {
+    public BookController(BookService bookService, AuthorService authorService, PublisherService publisherService, CategoryService categoryService, BookProsConfig bookProsConfig) {
         this.bookService = bookService;
         this.authorService = authorService;
         this.publisherService = publisherService;
         this.categoryService = categoryService;
+        this.bookProsConfig = bookProsConfig;
     }
 
     @GetMapping({"/menu","/menu.html"})

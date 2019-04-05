@@ -1,5 +1,6 @@
 package com.roma.librarymanagment.controller;
 
+import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.services.AuthorService;
 import org.junit.Before;
@@ -29,6 +30,7 @@ public class AuthorControllerTest {
     private AuthorController controller;
     private MockMvc mockMvc;
     private List<Author> authors;
+    private BookProsConfig bookProsConfig;
 
     @Test
     public void saveAuthor() throws Exception {
@@ -43,7 +45,7 @@ public class AuthorControllerTest {
     public void setUp() throws Exception {
 
         MockitoAnnotations.initMocks(this);
-        controller = new AuthorController(authorService);
+        controller = new AuthorController(authorService,bookProsConfig);
 
         authors = new ArrayList<>();
         Author author = new Author();

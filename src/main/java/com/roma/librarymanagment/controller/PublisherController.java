@@ -3,7 +3,6 @@ package com.roma.librarymanagment.controller;
 import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Publisher;
 import com.roma.librarymanagment.services.PublisherService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PublisherController {
 
     private PublisherService publisherService;
-    @Autowired
     private BookProsConfig bookProsConfig;
 
-    public PublisherController(PublisherService publisherService) {
+    public PublisherController(PublisherService publisherService, BookProsConfig bookProsConfig) {
         this.publisherService = publisherService;
+        this.bookProsConfig = bookProsConfig;
     }
 
     @RequestMapping(path = "/publishers", method = RequestMethod.GET)

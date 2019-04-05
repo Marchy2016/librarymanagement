@@ -3,7 +3,6 @@ package com.roma.librarymanagment.controller;
 import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Category;
 import com.roma.librarymanagment.services.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class CategoryController {
+
     private CategoryService categoryService;
-    @Autowired
-    BookProsConfig bookProsConfig;
+    private BookProsConfig bookProsConfig;
 
-
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, BookProsConfig bookProsConfig) {
         this.categoryService = categoryService;
+        this.bookProsConfig = bookProsConfig;
     }
 
     @RequestMapping(path = "/savecategory", method = RequestMethod.POST)
