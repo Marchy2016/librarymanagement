@@ -2,6 +2,8 @@ package com.roma.librarymanagment.services;
 
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.repositories.AuthorRepository;
+import org.dozer.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,19 +11,24 @@ import java.util.List;
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
-    AuthorRepository authorRepository;
+    private AuthorRepository authorRepository;
     private Author author;
 
+    @Autowired
     public AuthorServiceImpl(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
     @Override
-    public Author add(String firstName, String lastName,String email) {
+    public Author add(String firstName, String lastName,String email){
        if((!"".equals(firstName) && firstName != null) && (!"".equals(lastName) && lastName != null)
                && (!"".equals(email) && email != null)) {
-            author = new Author(firstName, lastName,email);
-        }
+               author = new Author();
+               author.setFirstName(firstName);
+               author.setLastName(lastName);
+               author.setEmail(email);
+           }
+
         return authorRepository.save(author);
     }
     public Author updateAuthor(Long id, String firstName, String lastName,String email){
@@ -40,6 +47,9 @@ public class AuthorServiceImpl implements AuthorService {
 
     public Author findAuthorById(Long id){
         return authorRepository.findById(id).isPresent() ? authorRepository.findById(id).get() : null;
+    }
+    public Author findAuthorByEmail(String email){
+        return authorRepository.findAuthorByEmail(email);
     }
     public void deleteAuthor(Long id) {
         Author author = findAuthorById(id);

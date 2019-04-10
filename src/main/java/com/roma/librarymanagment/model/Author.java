@@ -2,6 +2,8 @@ package com.roma.librarymanagment.model;
 
 
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

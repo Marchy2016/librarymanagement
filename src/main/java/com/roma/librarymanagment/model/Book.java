@@ -16,13 +16,13 @@ public class Book extends BaseEntity {
     @NotNull
     @Column(unique = true)
     private String isbn;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "publisher_book",joinColumns = @JoinColumn(name ="book_id"),
             inverseJoinColumns = @JoinColumn(name = "publisher_id"))
     @NotNull
     private Publisher publisher;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "author_book",joinColumns = @JoinColumn(name ="book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     @NotNull

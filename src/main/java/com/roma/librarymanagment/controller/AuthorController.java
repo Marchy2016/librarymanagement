@@ -3,6 +3,7 @@ package com.roma.librarymanagment.controller;
 import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.services.AuthorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class AuthorController {
     private  Author author;
     private BookProsConfig bookProsConfig;
 
+    @Autowired
     public AuthorController(AuthorService authorService, BookProsConfig bookProsConfig) {
         this.authorService = authorService;
         this.bookProsConfig = bookProsConfig;
