@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <title>Category List</title>
+    <title>Author List</title>
 </head>
 <body>
 <div class="container">
@@ -16,7 +16,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="nav-item nav-link" href="/savecategory">Add Category</a>
+        <a class="nav-item nav-link" href="/authors">Authors</a>
+        <a class="nav-item nav-link" href="/saveauthors">Add Author</a>
         <a class="nav-item nav-link" href="/menu">Home</a>
         <a class="nav-item nav-link" href="/">logout</a>
 
@@ -29,23 +30,29 @@
     </nav>
 </div>
 
+
 <hr>
 <div class="container">
-    <h1>Categories list</h1>
+    <h1>Author list</h1>
     <div class="row col-md-8 table-responsive">
-        <table id="booksTable" class="table">
+        <table id="booksTable" class="table table-hover">
             <thead>
             <tr>
-                <th>Category</th>
+
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
                 <th>Action</th>
+
             </tr>
             </thead>
             <thead>
-            <tr th:each="category : ${categories}">
-                <td th:text="${category.name}">123</td>
-                <td><a th:href="@{/findcategorybyid/{id}(id=${category.id})}" class="btn btn-success">Edit</a>
-                    <a th:href="@{/deletecategory/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
-                </td>
+            <tr th:object="${author}">
+                <td th:text="${author.firstName}">Malesela</td>
+                <td th:text="${author.lastName}">Tema</td>
+                <td th:text="${author.email}">team@gmail.com</td>
+                <td><a th:href="@{/findAuthorById/{id}(id= ${author.id})}" class="btn btn-success">Edit</a>
+                    <a th:href="@{/deleteauthor/{id}(id=${author.id})}" class="btn btn-danger">Delete</a></td>
             </tr>
             </thead>
 
@@ -54,6 +61,5 @@
         </table>
     </div>
 </div>
-
 </body>
 </html>

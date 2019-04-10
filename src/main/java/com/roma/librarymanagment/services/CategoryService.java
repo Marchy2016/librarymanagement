@@ -5,6 +5,9 @@ import com.roma.librarymanagment.model.Category;
 import java.util.List;
 
 public interface CategoryService {
-    Category add(String category);
-    List<Category> findAll();
+    Category addCategory(String category);
+    List<Category> listCategories();
+    Category findCategoryById(Long id);
+    void deleteCategory(Long id);
+    Category updateCategory(Category category);
 }

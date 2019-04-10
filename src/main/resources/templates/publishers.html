@@ -37,19 +37,20 @@
         <table id="booksTable" class="table table-hover">
             <thead>
     <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Address</th>
         <th>Email</th>
+        <th>Action</th>
 
     </tr>
             </thead>
             <thead>
     <tr th:each="publisher : ${publishers}">
-        <td th:text="${publisher.id}">123</td>
         <td th:text="${publisher.name}">Malesela</td>
         <td th:text="${publisher.address}">pennyville</td>
         <td th:text="${publisher.email}">team@gmail.com</td>
+        <td><a th:href="@{/findpublisher/{id}(id =${publisher.id})}" class="btn btn-success">Edit</a>
+           <a th:href="@{/deletepublisher/{id}(id =${publisher.id})}" class="btn btn-danger">Delete</a></td>
     </tr>
             </thead>
 

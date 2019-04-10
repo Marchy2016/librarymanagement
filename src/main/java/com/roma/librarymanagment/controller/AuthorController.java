@@ -1,21 +1,24 @@
 package com.roma.librarymanagment.controller;
 
+import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.services.AuthorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-
 
 @Controller
 public class AuthorController {
 
     private AuthorService authorService;
+    private  Author author;
+    private BookProsConfig bookProsConfig;
 
-    public AuthorController(AuthorService authorService) {
+    @Autowired
+    public AuthorController(AuthorService authorService, BookProsConfig bookProsConfig) {
         this.authorService = authorService;
+        this.bookProsConfig = bookProsConfig;
     }
 
     @RequestMapping(path = "/authors", method = RequestMethod.GET)
@@ -34,9 +37,35 @@ public class AuthorController {
     private String saveAuthor(Model model,@ModelAttribute Author author){
 
         final Author author_ = authorService.add(author.getFirstName(),author.getLastName(),author.getEmail());
-        model.addAttribute("authors",new ArrayList<Author>(){{add(author_);}});
-        return "menu";
+        model.addAttribute("author",author_);
+        return "author";
     }
+
+    @RequestMapping(path = "/updateauthors", method = RequestMethod.POST)
+    private String updateAuthor(@ModelAttribute Author authr){
+        if(authr != null){
+            author = authorService.updateAuthor(authr.getId(),authr.getFirstName(),authr.getLastName(),authr.getEmail());
+        }
+        return "author";
+    }
+
+
+    @RequestMapping(path = "/findAuthorById/{id}", method = RequestMethod.GET)
+    private String findAuthorById(Model model,@PathVariable Long id){
+        author = authorService.findAuthorById(id);
+            if(author != null){
+                model.addAttribute("author", author);
+            }
+        return "updateAuthor";
+    }
+
+    @RequestMapping(path = "/deleteauthor/{id}", method = RequestMethod.GET)
+    private String deleteAuthor(Model model,@PathVariable Long id){
+        authorService.deleteAuthor(id);
+      return bookProsConfig.getDisplayAuthors();
+    }
+
+
 
 
 

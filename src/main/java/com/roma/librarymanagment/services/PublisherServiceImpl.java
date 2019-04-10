@@ -13,7 +13,7 @@ public class PublisherServiceImpl implements PublisherService {
     @Autowired
     PublisherRepository publisherRepository;
     Publisher publisher;
-    public Publisher add(String name, String address,String email) {
+    public Publisher addPublisher(String name, String address,String email) {
 
         if((!"".equals(name) && name != null) && (!"".equals(address) && address != null)
                 && (!"".equals(email) && email != null)) {
@@ -22,10 +22,23 @@ public class PublisherServiceImpl implements PublisherService {
          return  publisherRepository.save(publisher);
 
     }
-    public List<Publisher> findAll(){
+    public List<Publisher> listPublishers(){
         return publisherRepository.findAll();
     }
-    public Publisher findById(Long id){
+    public Publisher findPublisherById(Long id){
         return publisherRepository.findById(id).isPresent() ? publisherRepository.findById(id).get() : null;
+    }
+    public Publisher updatePublisher(Long id, String name, String address,String email){
+        Publisher publisher = findPublisherById(id);
+        if(publisher != null){
+            publisher.setName(name);
+            publisher.setEmail(email);
+            publisher.setAddress(address);
+        }
+        return publisherRepository.save(publisher);
+    }
+    public void deletePublisher(Long id){
+        publisher = findPublisherById(id);
+        publisherRepository.delete(publisher);
     }
 }

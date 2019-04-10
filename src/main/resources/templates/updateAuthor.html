@@ -32,12 +32,17 @@
 <div class="container">
     <h3>Author Details </h3>
     <div class="row col-md-8 table-responsive">
-        <form action="#" method="post" th:action="@{/saveauthors}" th:object="${author}" >
+        <form action="#" method="post" th:action="@{/updateauthors}" th:object="${author}" >
+            <div class="form-group">
+                <label for="id">ID</label>
+                <input type="text" th:field="*{id}" id ="id" class="form-control" placeholder=""/>
+                <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}">first name error</div>
+            </div>
             <div class="form-group">
                 <label for="firstName">First Name</label>
                 <input type="text" th:field="*{firstName}" id ="firstName" class="form-control" placeholder="Enter first name"/>
                 <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">first name error</div>
-               </div>
+            </div>
             <div class="form-group">
                 <label for="lastName">Last Name</label>
                 <input type="text" th:field="*{lastName}" id ="lastName" class="form-control" placeholder="Enter last name" />
@@ -52,12 +57,6 @@
         </form>
     </div>
 </div>
-
-
-
-
-
-
 
 </body>
 </html>
