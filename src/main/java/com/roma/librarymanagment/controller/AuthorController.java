@@ -15,7 +15,6 @@ public class AuthorController {
     private  Author author;
     private BookProsConfig bookProsConfig;
 
-    @Autowired
     public AuthorController(AuthorService authorService, BookProsConfig bookProsConfig) {
         this.authorService = authorService;
         this.bookProsConfig = bookProsConfig;

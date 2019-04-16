@@ -1,13 +1,13 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org" >
 <head>
-    <title>Author</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>Customer List</title>
 </head>
 <body>
 <div class="container">
@@ -15,6 +15,8 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <a class="nav-item nav-link" href="/savecustomers">Add Customer</a>
         <a class="nav-item nav-link" href="/menu">Home</a>
         <a class="nav-item nav-link" href="/">logout</a>
 
@@ -26,30 +28,32 @@
         </div>
     </nav>
 </div>
-
 <hr>
-
 <div class="container">
-    <h3>Author Details </h3>
+    <h1>Customer list</h1>
     <div class="row col-md-8 table-responsive">
-        <form action="#" method="post" th:action="@{/saveauthors}" th:object="${author}" >
-            <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" th:field="*{firstName}" id ="firstName" class="form-control" placeholder="Enter first name"/>
-                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">first name error</div>
-               </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" th:field="*{lastName}" id ="lastName" class="form-control" placeholder="Enter last name" />
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" th:field="*{email}" id ="email" class="form-control" placeholder="Enter email" />
-            </div>
-            <input type="submit"  class="btn btn-primary" value="Save" />
-            <input type="reset"  class="btn btn-primary" value="Cancel" />
+        <table id="booksTable" class="table table-hover">
+            <thead>
+            <tr>
 
-        </form>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Action</th>
+
+            </tr>
+            </thead>
+            <thead>
+            <tr th:each="customer : ${customers}">
+
+                <td> <a th:text="${customer.firstName}">Malesela</a></td>
+                <td th:text="${customer.lastName}">Tema</td>
+                <td th:text="${customer.email}">team@gmail.com</td>
+                <td><a th:href="@{/findcustomerbyid/{id}(id= ${customer.id})}" class="btn btn-success">Edit</a>
+                    <a th:href="@{/deletecustomer/{id}(id=${customer.id})}" class="btn btn-danger">Delete</a></td>
+            </tr>
+            </thead>
+        </table>
     </div>
 </div>
 </body>
