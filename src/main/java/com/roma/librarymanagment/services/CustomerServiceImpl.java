@@ -29,14 +29,14 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.save(customer);
     }
     public Customer updateCustomer(Long id, String firstName, String lastName,String email){
-        Customer  Customer = findCustomerById(id);
-        if(Customer != null) {
-            Customer.setFirstName(firstName);
-            Customer.setLastName(lastName);
-            Customer.setEmail(email);
+        customer = findCustomerById(id);
+        if(customer != null) {
+            customer.setFirstName(firstName);
+            customer.setLastName(lastName);
+            customer.setEmail(email);
+            customerRepository.save(customer);
         }
-        return customerRepository.save(Customer);
-
+        return customer;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findCustomerByEmail(email);
     }
     public void deleteCustomer(Long id) {
-        Customer Customer = findCustomerById(id);
-        customerRepository.delete(Customer);
+        customer = findCustomerById(id);
+        customerRepository.delete(customer);
     }
 }

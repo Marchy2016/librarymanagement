@@ -2,10 +2,7 @@ package com.roma.librarymanagment.services;
 
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.repositories.AuthorRepository;
-import org.dozer.inject.Inject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -31,14 +28,14 @@ public class AuthorServiceImpl implements AuthorService {
         return authorRepository.save(author);
     }
     public Author updateAuthor(Long id, String firstName, String lastName,String email){
-        Author  author = findAuthorById(id);
+        author = findAuthorById(id);
         if(author != null) {
             author.setFirstName(firstName);
             author.setLastName(lastName);
             author.setEmail(email);
+            authorRepository.save(author);
            }
-      return authorRepository.save(author);
-
+      return author;
     }
     public List<Author> findAll(){
         return authorRepository.findAll();
@@ -51,7 +48,7 @@ public class AuthorServiceImpl implements AuthorService {
         return authorRepository.findAuthorByEmail(email);
     }
     public void deleteAuthor(Long id) {
-        Author author = findAuthorById(id);
+        author = findAuthorById(id);
         authorRepository.delete(author);
     }
 }

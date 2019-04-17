@@ -1,10 +1,6 @@
 package com.roma.librarymanagment.model;
 
-
 import lombok.Data;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -32,8 +28,6 @@ public class Author {
     @OneToMany
     private Set<Book> book = new HashSet<>();
 
-    //@ManyToMany(mappedBy = "authors")
-    //private Book books;
     public Author(String firstName, String lastName,String email){
         this.firstName = firstName;
         this.lastName = lastName;

@@ -6,26 +6,18 @@ import com.roma.librarymanagment.model.Category;
 import com.roma.librarymanagment.model.Publisher;
 import com.roma.librarymanagment.repositories.BookRepository;
 import lombok.extern.slf4j.XSlf4j;
-import org.dozer.Mapper;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+
 
 @XSlf4j
 @Service
 public class BookServiceImpl implements BookService {
 
     private BookRepository bookRepository;
-    private Mapper mapper;
+
     public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
@@ -46,31 +38,13 @@ public class BookServiceImpl implements BookService {
     public List<Book> findAll(){
         return  bookRepository.findAll();
     }
-    public Optional<Book> findById(Long id){
-        return bookRepository.findById(id);
-    }
 
-   /* private Author mapAuthor(Author author){
-        if(author != null){
-            Author author = new Author();
-            mapper.map(author,Author.class);
-            return author;
-      }
-      return null;
-    }*/
-    private Publisher mapPublisher(Publisher publisher){
-        if(publisher != null){
-            Publisher publisherEntity = new Publisher();
-            mapper.map(publisher,Publisher.class);
-            return publisherEntity;
-        }
-        return null;
-    }
     public void deleteById(Long id){
         bookRepository.deleteById(id);
     }
     public  Book updateBook(String isbn,Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
         Book book = findByIsbn(isbn);
+            book.setIsbn(isbn);
             book.setPublisher(publisher);
             book.setAuthor(author);
             book.setTitle(title);
@@ -95,13 +69,10 @@ public class BookServiceImpl implements BookService {
             bookIds.add(book.getPublisher().getId());
         }
        return bookRepository.findBooksByPublisherId(id,bookIds);
-
-
     }
     public  Book findBookById(Long id){
         return bookRepository.findBookById(id);
     }
-
 
     @Override
     public  List<Book> findBooksByAuthorId(Long id){

@@ -30,10 +30,9 @@ public class BookServiceImplTest {
 
     public static final String HOW_TO_PROGRAM = "How to program";
     @InjectMocks
-    BookServiceImpl bookService;
+    private BookServiceImpl bookService;
     @Mock
-    BookRepository bookRepository;
-    Book returnBook;
+    private BookRepository bookRepository;
 
     @Before
     public void setUp() throws Exception { }

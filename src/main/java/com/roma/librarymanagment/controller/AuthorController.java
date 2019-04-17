@@ -3,7 +3,6 @@ package com.roma.librarymanagment.controller;
 import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.services.AuthorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +13,7 @@ public class AuthorController {
     private AuthorService authorService;
     private  Author author;
     private BookProsConfig bookProsConfig;
+    private final String AUTHOR_VIEW = "author";
 
     public AuthorController(AuthorService authorService, BookProsConfig bookProsConfig) {
         this.authorService = authorService;
@@ -28,16 +28,16 @@ public class AuthorController {
     @RequestMapping(path = "/saveauthors", method = RequestMethod.GET)
     private String saveAuthor(Model model){
 
-      model.addAttribute("author",new Author());
+      model.addAttribute(AUTHOR_VIEW,new Author());
         return "addAuthors";
     }
 
     @RequestMapping(path = "/saveauthors", method = RequestMethod.POST)
     private String saveAuthor(Model model,@ModelAttribute Author author){
 
-        final Author author_ = authorService.add(author.getFirstName(),author.getLastName(),author.getEmail());
-        model.addAttribute("author",author_);
-        return "author";
+      this.author = authorService.add(author.getFirstName(),author.getLastName(),author.getEmail());
+        model.addAttribute(AUTHOR_VIEW,this.author);
+        return AUTHOR_VIEW;
     }
 
     @RequestMapping(path = "/updateauthors", method = RequestMethod.POST)
@@ -45,7 +45,7 @@ public class AuthorController {
         if(authr != null){
             author = authorService.updateAuthor(authr.getId(),authr.getFirstName(),authr.getLastName(),authr.getEmail());
         }
-        return "author";
+        return AUTHOR_VIEW;
     }
 
 
@@ -53,7 +53,7 @@ public class AuthorController {
     private String findAuthorById(Model model,@PathVariable Long id){
         author = authorService.findAuthorById(id);
             if(author != null){
-                model.addAttribute("author", author);
+                model.addAttribute(AUTHOR_VIEW, author);
             }
         return "updateAuthor";
     }

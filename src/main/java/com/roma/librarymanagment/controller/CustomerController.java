@@ -1,7 +1,6 @@
 package com.roma.librarymanagment.controller;
 
 import com.roma.librarymanagment.config.BookProsConfig;
-import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.model.Customer;
 import com.roma.librarymanagment.services.CustomerService;
 import org.springframework.stereotype.Controller;
@@ -50,7 +49,6 @@ public class CustomerController {
         }
         return "customer";
     }
-
 
     @RequestMapping(path = "/findcustomerbyid/{id}", method = RequestMethod.GET)
     private String findCustomerById(Model model,@PathVariable Long id){
