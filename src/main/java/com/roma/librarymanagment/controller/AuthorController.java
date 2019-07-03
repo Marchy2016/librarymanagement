@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
 public class AuthorController {
 
@@ -33,7 +35,7 @@ public class AuthorController {
     }
 
     @RequestMapping(path = "/saveauthors", method = RequestMethod.POST)
-    private String saveAuthor(Model model,@ModelAttribute Author author){
+    private String saveAuthor(Model model,@Valid @ModelAttribute(AUTHOR_VIEW) Author author){
 
       this.author = authorService.add(author.getFirstName(),author.getLastName(),author.getEmail());
         model.addAttribute(AUTHOR_VIEW,this.author);

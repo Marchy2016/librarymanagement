@@ -17,8 +17,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author add(String firstName, String lastName,String email){
-       if((!"".equals(firstName) && firstName != null) && (!"".equals(lastName) && lastName != null)
-               && (!"".equals(email) && email != null)) {
+       if((!"".equalsIgnoreCase(firstName) && firstName != null) && (!"".equalsIgnoreCase(lastName) && lastName != null)
+               && (!"".equalsIgnoreCase(email) && email != null)) {
                author = new Author();
                author.setFirstName(firstName);
                author.setLastName(lastName);
