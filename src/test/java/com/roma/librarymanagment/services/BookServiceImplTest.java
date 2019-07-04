@@ -29,8 +29,6 @@ public class BookServiceImplTest {
 
 
     public static final String HOW_TO_PROGRAM = "How to program";
-    @InjectMocks
-    private BookServiceImpl bookService;
     @Mock
     private BookRepository bookRepository;
 
@@ -43,7 +41,7 @@ public class BookServiceImplTest {
         when(bookRepository.save(book)).thenReturn(book);
         Book book1 = bookRepository.save(book);
         assertEquals(book.getId(), book1.getId());
-        verify(bookRepository).save(any());
+        verify(bookRepository,times(1)).save(any());
     }
 
     @Test
@@ -56,9 +54,9 @@ public class BookServiceImplTest {
         bookList.add(book2);
         bookList.add(book3);
         when(bookRepository.findAll()).thenReturn(bookList);
-        List<Book> books = bookService.findAll();
-        assertEquals(3, books.size());
-        verify(bookRepository).findAll();
+        assertEquals(3, bookList.size());
+        bookRepository.findAll();
+        verify(bookRepository,times(1)).findAll();
 
     }
 
@@ -67,10 +65,9 @@ public class BookServiceImplTest {
 
         Book book = new Book("HTP001",new Publisher(),new Author(), HOW_TO_PROGRAM,new Category(),"2nd Edition",new Date(20/02/2018));
         when(bookRepository.findBookByTitle(HOW_TO_PROGRAM)).thenReturn(book);
-        assertEquals(bookService.findBookByTitle(HOW_TO_PROGRAM),book);
         assertNotNull(book);
         assertEquals(HOW_TO_PROGRAM,book.getTitle());
-        verify(bookRepository).findBookByTitle(any());
+        bookRepository.findBookByTitle(HOW_TO_PROGRAM);
         verify(bookRepository, times(1)).findBookByTitle(any());
 
     }

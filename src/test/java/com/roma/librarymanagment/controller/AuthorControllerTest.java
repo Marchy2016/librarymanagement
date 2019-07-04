@@ -42,12 +42,12 @@ public class AuthorControllerTest {
     AuthorRepository authorRepository;
     @Autowired
     private MockMvc mockMvc;
+    private static final String email = "marcusking@gmail.com";
+    private static final  String name = "marcus";
+    private static final String surname = "king";
 
     @Test
     public void saveAuthor() throws Exception {
-       String name = "marcus";
-       String surname = "king";
-       String email = "marcusking@gmail.com";
        Author author = new Author();
        author.setEmail(email);
        author.setFirstName(name);
@@ -67,16 +67,13 @@ public class AuthorControllerTest {
     @Test
     public void deleteAuthor() {
 
-        String name = "marcus";
-        String surname = "king";
-        String email = "marcusking@gmail.com";
         Author author = new Author();
         author.setEmail(email);
         author.setFirstName(name);
         author.setLastName(surname);
         author.setId(1l);
 
-        when(authorRepository.findAuthorByEmail("marcusking@gmail.com")).thenReturn(author);
+        when(authorRepository.findAuthorByEmail("marcusking@gmail.com")).thenReturn(java.util.Optional.ofNullable(author));
         assertNotNull(author.getId());
         authorRepository.delete(author);
         assertNotNull(author.getId());
@@ -91,9 +88,6 @@ public class AuthorControllerTest {
     @Test
     public void listAuthors() throws Exception {
 
-        String name = "marcus";
-        String surname = "king";
-        String email = "marcusking@gmail.com";
         Author author = new Author();
         author.setEmail(email);
         author.setFirstName(name);
