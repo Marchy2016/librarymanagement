@@ -17,7 +17,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    @Size(min=5, max = 15)
+    @Size(min=1, max = 15)
     private String firstName;
     @NotNull
     private String lastName;
@@ -53,6 +53,14 @@ public class Author {
                 ", email='" + email + '\'' +
 
                 '}';
+    }
+
+    public Set<Book> getBook() {
+        return book;
+    }
+
+    public void setBook(Set<Book> book) {
+        this.book = book;
     }
 
     @Override
