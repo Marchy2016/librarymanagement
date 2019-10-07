@@ -10,18 +10,20 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private CategoryRepository categoryRepository;
+    private Category category;
 
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
     @Override
-    public Category addCategory(String category) {
-        Category category1 = null;
-        if(category != null && !StringUtils.isEmpty(category)){
-            category1 = new Category(category);
+    public Category addCategory(String category_) {
+
+        if(category_ != null && !StringUtils.isEmpty(category_)){
+            category = new Category(category_);
+            categoryRepository.save(category);
         }
-        return categoryRepository.save(category1);
+        return category;
     }
 
     @Override
@@ -32,16 +34,16 @@ public class CategoryServiceImpl implements CategoryService {
        return categoryRepository.findById(id).isPresent() ? categoryRepository.findById(id).get() : null;
     }
     public void deleteCategory(Long id){
-        Category category = findCategoryById(id);
+        category = findCategoryById(id);
         categoryRepository.delete(category);
     }
 
-    public  Category updateCategory(Category category){
-        Category category1 = findCategoryById(category.getId());
-        if(category1 != null){
-            category1.setName(category.getName());
-            categoryRepository.save(category1);
+    public  Category updateCategory(Category category_){
+        category = findCategoryById(category_.getId());
+        if(category != null){
+            category.setName(category_.getName());
+            categoryRepository.save(category);
         }
-        return category1;
+        return category;
     }
 }

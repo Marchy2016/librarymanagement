@@ -19,4 +19,5 @@ public class BookProsConfig {
     private String displayCategories;
     private String displayBook;
     private String displayBooks;
+    private String displayCustomers;
 }

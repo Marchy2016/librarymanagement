@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface BookRepository extends JpaRepository<Book, Long> {
-    Book findByIsbn(String isbn);
+    Optional<Book> findByIsbn(String isbn);
     Book findBookByTitle(String title);
     Book findBookById(Long id);
     @Query("SELECT b FROM Book b INNER JOIN Author a ON b.author.id = a.id where b.author.id = :authorId and b.author.id in :authorIds")

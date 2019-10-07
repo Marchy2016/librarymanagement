@@ -1,17 +1,21 @@
 package com.roma.librarymanagment.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Data
 @Entity
-public class Author {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,46 +30,30 @@ public class Author {
     @Email
     private String email;
     @OneToMany
-    private Set<Book> book = new HashSet<>();
-
-    public Author(String firstName, String lastName,String email){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-
-    }
-    public Author(){}
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Author author = (Author) o;
-        return id != null ? id.equals(author.id) : author.id == null;
-
-    }
+    private Set<Book> books;
 
     @Override
     public String toString() {
-        return "Author{" +
+        return "Customer{" +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-
+                ", books=" + books +
                 '}';
-    }
-
-    public Set<Book> getBook() {
-        return book;
-    }
-
-    public void setBook(Set<Book> book) {
-        this.book = book;
     }
 
     @Override
     public int hashCode() {
 
         return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(id, customer.id);
     }
 }

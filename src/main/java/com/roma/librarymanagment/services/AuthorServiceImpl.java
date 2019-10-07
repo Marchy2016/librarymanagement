@@ -1,58 +1,120 @@
 package com.roma.librarymanagment.services;
 
+import com.roma.librarymanagment.Exceptions.NotFoundException;
+import com.roma.librarymanagment.dtos.AuthorDTO;
+
+import com.roma.librarymanagment.mapper.AuthorMapper1;
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.repositories.AuthorRepository;
-import org.dozer.inject.Inject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.ObjectUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
     private AuthorRepository authorRepository;
-    private Author author;
+    private static Logger logger = LoggerFactory.getLogger(AuthorServiceImpl.class);
+    private AuthorMapper1 authorMapper;
 
-    @Autowired
-    public AuthorServiceImpl(AuthorRepository authorRepository) {
+    public AuthorServiceImpl(AuthorMapper1 authorMapper, AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
+        this.authorMapper = authorMapper;
     }
 
     @Override
-    public Author add(String firstName, String lastName,String email){
-       if((!"".equals(firstName) && firstName != null) && (!"".equals(lastName) && lastName != null)
-               && (!"".equals(email) && email != null)) {
-               author = new Author();
-               author.setFirstName(firstName);
-               author.setLastName(lastName);
-               author.setEmail(email);
-           }
+    public AuthorDTO add(AuthorDTO author) {
 
-        return authorRepository.save(author);
-    }
-    public Author updateAuthor(Long id, String firstName, String lastName,String email){
-        Author  author = findAuthorById(id);
-        if(author != null) {
-            author.setFirstName(firstName);
-            author.setLastName(lastName);
-            author.setEmail(email);
-           }
-      return authorRepository.save(author);
-
-    }
-    public List<Author> findAll(){
-        return authorRepository.findAll();
+        Author author1 = authorMapper.authorDTOToAuthor(author);
+        return authorMapper.authorToAuthorDTO(authorRepository.save(author1));
     }
 
-    public Author findAuthorById(Long id){
-        return authorRepository.findById(id).isPresent() ? authorRepository.findById(id).get() : null;
+    @Override
+    public AuthorDTO updateAuthor(Long id, AuthorDTO authorDTO) {
+
+        return authorRepository.findById(id).map(author1 -> {
+            if (authorDTO.getFirstName() != null) {
+                author1.setFirstName(authorDTO.getFirstName());
+            }
+            if (authorDTO.getLastName() != null) {
+                author1.setLastName(authorDTO.getLastName());
+            }
+            if (authorDTO.getEmail() != null) {
+                author1.setEmail(authorDTO.getEmail());
+            }
+            return authorMapper.authorToAuthorDTO(authorRepository.save(author1));
+
+        }).orElseThrow(RuntimeException::new);
     }
-    public Author findAuthorByEmail(String email){
-        return authorRepository.findAuthorByEmail(email);
+
+    @Override
+    public AuthorDTO patchAuthor(Long id, AuthorDTO authorDTO) {
+
+        return authorRepository.findById(id).map(author1 -> {
+            if (!author1.getFirstName().equalsIgnoreCase(authorDTO.getFirstName())) {
+                author1.setFirstName(authorDTO.getFirstName());
+            }
+            if (!author1.getLastName().equalsIgnoreCase(authorDTO.getLastName())) {
+                author1.setLastName(authorDTO.getLastName());
+            }
+            if (!author1.getEmail().equalsIgnoreCase(authorDTO.getEmail())) {
+                author1.setEmail(authorDTO.getEmail());
+            }
+            return authorMapper.authorToAuthorDTO(authorRepository.save(author1));
+
+        }).orElseThrow(RuntimeException::new);
     }
+
+    @Override
+    public List<AuthorDTO> findAll() {
+
+        return authorRepository.findAll()
+                .stream()
+                .map(authorMapper::authorToAuthorDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public AuthorDTO findAuthorById(Long id) {
+
+        return authorRepository.findById(id).map(author -> {
+            if (ObjectUtils.isEmpty(author)) {
+                throw new NotFoundException("Author with id " + id.toString() + " not found");
+            }
+            return authorMapper.authorToAuthorDTO(author);
+
+        }).orElseThrow(NotFoundException::new);
+
+    }
+
+    @Override
+    public AuthorDTO findAuthorByEmail(String email) {
+        return authorRepository.findAuthorByEmail(email).map(author -> {
+            if (ObjectUtils.isEmpty(author)) {
+                throw new NotFoundException("Author with email " + email + " not found");
+            }
+            return authorMapper.authorToAuthorDTO(author);
+
+        }).orElseThrow(RuntimeException::new);
+
+    }
+
+    @Override
     public void deleteAuthor(Long id) {
-        Author author = findAuthorById(id);
-        authorRepository.delete(author);
+        if (id != null) {
+            try {
+                AuthorDTO author = findAuthorById(id);
+                if (ObjectUtils.isNotEmpty(author)) {
+                    authorRepository.delete(authorMapper.authorDTOToAuthor(author));
+                }
+            } catch (NullPointerException ex) {
+                logger.error("Author with id {} does not exists", id);
+            }
+        }
     }
 }
