@@ -65,13 +65,11 @@ public class BookController {
     @RequestMapping(path = "/savebook", method = RequestMethod.GET)
     private String saveBook(Model model){
         model.addAttribute("book",new Book());
-        List<Author>  authors = authorService.findAll();
-        List<Category> categories = categoryService.listCategories();
-        System.out.println("Authors :" + authors.toString());
+        System.out.println("Authors :" + getAuthors().toString());
         List<Publisher> publishers = publisherService.listPublishers();
         model.addAttribute("publishers", publishers);
-        model.addAttribute("authors", authors);
-        model.addAttribute("categories", categories);
+        model.addAttribute("authors", getAuthors());
+        model.addAttribute("categories", getCategories());
         return "addBooks";
     }
     @RequestMapping(path = "/savebook", method = RequestMethod.POST)
@@ -91,13 +89,11 @@ public class BookController {
     @RequestMapping(path = "/updateBook/{isbn}", method = RequestMethod.GET)
     private String getBook(Model model,@PathVariable String isbn){
         model.addAttribute("book", bookService.findByIsbn(isbn));
-        List<Author>  authors = authorService.findAll();
-        List<Category> categories = categoryService.listCategories();
-        System.out.println("Authors :" + authors.toString());
+        System.out.println("Authors :" + getAuthors().toString());
         List<Publisher> publishers = publisherService.listPublishers();
         model.addAttribute("publishers", publishers);
-        model.addAttribute("authors", authors);
-        model.addAttribute("categories", categories);
+        model.addAttribute("authors", getAuthors());
+        model.addAttribute("categories", getCategories());
         return "updateBook";
     }
 
@@ -129,6 +125,12 @@ public class BookController {
             model.addAttribute("book", book);
         }
         return "book";
+    }
+    private List<Author> getAuthors(){
+      return  authorService.findAll();
+    }
+    private List<Category> getCategories(){
+        return  categoryService.listCategories();
     }
 
 }
