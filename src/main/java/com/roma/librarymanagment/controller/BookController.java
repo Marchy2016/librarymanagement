@@ -9,6 +9,7 @@ import com.roma.librarymanagment.services.AuthorService;
 import com.roma.librarymanagment.services.BookService;
 import com.roma.librarymanagment.services.CategoryService;
 import com.roma.librarymanagment.services.PublisherService;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -73,12 +74,20 @@ public class BookController {
         return "addBooks";
     }
     @RequestMapping(path = "/savebook", method = RequestMethod.POST)
-    private String saveBook(Model model, String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
-        final Book book = bookService.add(isbn,publisher,author,title, category,edition,yearPublished);
-        model.addAttribute("book", book);
-        return bookProsConfig.getDisplayBook() + book.getId();
-    }
+    private String saveBook(Model model, String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished) throws Exception {
+        if(null != bookService.findByIsbn(isbn)) {
+            throw new DuplicateKeyException("Book with isbn " + isbn + "already exists");
+        }else{
+            final Book book = bookService.add(isbn, publisher, author, title, category, edition, yearPublished);
+            if(null != book){
+                model.addAttribute("book", book);
+                return bookProsConfig.getDisplayBook() + book.getId();
+            }else{
+                return "Error saving a book";
+            }
 
+        }
+    }
 
     @RequestMapping(path = "/deleteBook/{id}", method = RequestMethod.GET)
     private String deleteBook(@PathVariable Long id){

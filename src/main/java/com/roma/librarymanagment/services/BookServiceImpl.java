@@ -30,18 +30,15 @@ public class BookServiceImpl implements BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Book add(String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished) {
-        Book book = bookRepository.findByIsbn(isbn);
-        if (book != null) {
-            throw log.throwing(new DuplicateKeyException("This book already exists."));
-        } else {
-            if (title != null && !StringUtils.isEmpty(title) && isbn != null && !StringUtils.isEmpty(isbn) && publisher != null && author != null
-                    && category != null && (edition != null && !StringUtils.isEmpty(edition)) && yearPublished != null) {
-                book = new Book(isbn, publisher, author,title, category, edition, yearPublished);
-                bookRepository.save(book);
+    public Book add(String isbn, Publisher publisher,Author author,String title,
+                    Category category,String edition, Date yearPublished) {
+            if (!"".equals(title) &&  !"".equals(isbn) &&
+                    publisher != null && author != null
+                    && category != null && !"".equals(edition) && yearPublished != null) {
+               Book book = new Book(isbn, publisher, author,title, category, edition, yearPublished);
+               return bookRepository.save(book);
             }
-            return book;
-        }
+           return null;
     }
     public List<Book> findAll(){
         return  bookRepository.findAll();
@@ -69,18 +66,22 @@ public class BookServiceImpl implements BookService {
     public void deleteById(Long id){
         bookRepository.deleteById(id);
     }
-    public  Book updateBook(String isbn,Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished){
+
+    public  Book updateBook(String isbn,Publisher publisher,Author author,String title,
+                            Category category,String edition, Date yearPublished){
         Book book = findByIsbn(isbn);
+        if(null != book){
             book.setPublisher(publisher);
             book.setAuthor(author);
             book.setTitle(title);
             book.setCategory(category);
             book.setEdition(edition);
             book.setYearPublished(yearPublished);
-            bookRepository.save(book);
-
-        return book;
-    }
+            return bookRepository.save(book);
+        }else{
+            return null;
+        }
+  }
     public Book findByIsbn(String isbn){
         return bookRepository.findByIsbn(isbn);
     }
@@ -95,14 +96,13 @@ public class BookServiceImpl implements BookService {
             bookIds.add(book.getPublisher().getId());
         }
        return bookRepository.findBooksByPublisherId(id,bookIds);
-
-
     }
+
     public  Book findBookById(Long id){
         return bookRepository.findBookById(id);
     }
 
-
+    //todo what is the id for?
     @Override
     public  List<Book> findBooksByAuthorId(Long id){
         List<Book> books = bookRepository.findAll();
@@ -112,8 +112,5 @@ public class BookServiceImpl implements BookService {
         }
         return bookRepository.findBooksByAuthorId(id,bookAuthorIds);
     }
-
-
-
 
 }

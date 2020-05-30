@@ -3,6 +3,7 @@ package com.roma.librarymanagment.controller;
 import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Category;
 import com.roma.librarymanagment.services.CategoryService;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,10 +23,16 @@ public class CategoryController {
     }
 
     @RequestMapping(path = "/savecategory", method = RequestMethod.POST)
-    public String addCategory(Model model,@ModelAttribute Category category){
-        final Category category1 = categoryService.addCategory(category.getName());
-        model.addAttribute("category",category1);
-        return "category";
+    public String addCategory(Model model,@ModelAttribute Category category) {
+
+        if(null != categoryService.findCategoryById(category.getId())) {
+            throw new DuplicateKeyException("Author already exists");
+        }else{
+            final Category categry = categoryService.addCategory(category.getName());
+            model.addAttribute("category",categry);
+            return "category";
+        }
+
     }
 
     @RequestMapping(path = "/savecategory", method = RequestMethod.GET)
@@ -67,6 +74,4 @@ public class CategoryController {
         }
         return "category";
     }
-
-
 }

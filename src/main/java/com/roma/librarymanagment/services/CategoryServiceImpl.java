@@ -16,12 +16,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category addCategory(String category) {
-        Category category1 = null;
-        if(category != null && !StringUtils.isEmpty(category)){
-            category1 = new Category(category);
+    public Category addCategory(String categoryName) {
+         if(!"".equals(categoryName) && !StringUtils.isEmpty(categoryName)){
+            Category  category = new Category(categoryName);
+            return categoryRepository.save(category);
+        }else{
+            return null;
         }
-        return categoryRepository.save(category1);
+
     }
 
     @Override
@@ -37,11 +39,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public  Category updateCategory(Category category){
-        Category category1 = findCategoryById(category.getId());
-        if(category1 != null){
-            category1.setName(category.getName());
-            categoryRepository.save(category1);
+        Category categry = findCategoryById(category.getId());
+        if(categry != null){
+            categry.setName(category.getName());
+            return categoryRepository.save(categry);
+        }else{
+            return null;
         }
-        return category1;
     }
 }

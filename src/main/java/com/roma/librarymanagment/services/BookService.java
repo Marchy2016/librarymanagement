@@ -14,13 +14,15 @@ import java.util.List;
 public interface BookService{
     List<Book> findAll();
     void deleteById(Long id);
-    Book updateBook(String isbn,Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished);
+    Book updateBook(String isbn,Publisher publisher,Author author,
+                    String title,Category category,String edition, Date yearPublished);
     Book findByIsbn(String isbn);
     Book findBookByTitle(String title);
     Book findBookById(Long id);
     List<Book> findBooksByPublisherId(Long id);
     List<Book> findBooksByAuthorId(Long id);
 
-    Book add(String isbn, Publisher publisher,Author author,String title,Category category,String edition, Date yearPublished);
+    Book add(String isbn, Publisher publisher,Author author,
+             String title,Category category,String edition, Date yearPublished);
 
 }

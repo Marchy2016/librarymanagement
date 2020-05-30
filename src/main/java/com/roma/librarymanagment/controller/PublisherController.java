@@ -3,6 +3,7 @@ package com.roma.librarymanagment.controller;
 import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Publisher;
 import com.roma.librarymanagment.services.PublisherService;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,11 +38,15 @@ public class PublisherController {
 
     @RequestMapping(path = "/savepublishers", method = RequestMethod.POST)
     private String savePublisher(Model model, @ModelAttribute Publisher publisher){
-        Publisher publisher1 = publisherService.addPublisher(publisher.getName(),publisher.getAddress(),publisher.getEmail());
-        model.addAttribute("publisher", publisher1);
-        return "publisher";
-
-    }
+        if( null != publisherService.findPublisherById(publisher.getId()) ){
+            throw new DuplicateKeyException("Publisher already exists");
+        }else{
+            Publisher publsher = publisherService.addPublisher(publisher.getName(),
+                    publisher.getAddress(),publisher.getEmail());
+            model.addAttribute("publisher", publsher);
+            return "publisher";
+        }
+ }
 
     @RequestMapping(path = "/findpublisher/{id}", method = RequestMethod.GET)
     private String savePublisher(Model model, @PathVariable Long id){
@@ -65,12 +70,5 @@ public class PublisherController {
           publisherService.deletePublisher(id);
         return bookProsConfig.getDisplayPublishers();
     }
-
-
-
-
-
-
-
 
 }

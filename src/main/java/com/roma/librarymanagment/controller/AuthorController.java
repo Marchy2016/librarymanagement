@@ -4,6 +4,7 @@ import com.roma.librarymanagment.config.BookProsConfig;
 import com.roma.librarymanagment.model.Author;
 import com.roma.librarymanagment.services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,17 +35,20 @@ public class AuthorController {
     }
 
     @RequestMapping(path = "/saveauthors", method = RequestMethod.POST)
-    private String saveAuthor(Model model,@ModelAttribute Author author){
-
-        final Author author_ = authorService.add(author.getFirstName(),author.getLastName(),author.getEmail());
-        model.addAttribute("author",author_);
-        return "author";
+    private String saveAuthor(Model model,@ModelAttribute Author author) throws Exception {
+        if(null != authorService.findAuthorById(author.getId())) {
+            throw new DuplicateKeyException("Author already exists");
+        }else{
+            final Author author_ = authorService.add(author.getFirstName(),author.getLastName(),author.getEmail());
+            model.addAttribute("author",author_);
+            return "author";
+        }
     }
 
     @RequestMapping(path = "/updateauthors", method = RequestMethod.POST)
-    private String updateAuthor(@ModelAttribute Author authr){
-        if(authr != null){
-            author = authorService.updateAuthor(authr.getId(),authr.getFirstName(),authr.getLastName(),authr.getEmail());
+    private String updateAuthor(@ModelAttribute Author author){
+        if(author != null){
+            this.author = authorService.updateAuthor(author.getId(),author.getFirstName(),author.getLastName(),author.getEmail());
         }
         return "author";
     }

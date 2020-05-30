@@ -12,7 +12,6 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
 
     private AuthorRepository authorRepository;
-    private Author author;
 
     @Autowired
     public AuthorServiceImpl(AuthorRepository authorRepository) {
@@ -21,27 +20,27 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author add(String firstName, String lastName,String email){
-       if((!"".equals(firstName) && firstName != null) && (!"".equals(lastName) && lastName != null)
-               && (!"".equals(email) && email != null)) {
-               author = new Author();
-               author.setFirstName(firstName);
-               author.setLastName(lastName);
-               author.setEmail(email);
-
-           }
-
-        return authorRepository.save(author);
-    }
+            if(!"".equals(firstName) && !"".equals(lastName) && !"".equals(email)) {
+              Author  author = new Author();
+                author.setFirstName(firstName);
+                author.setLastName(lastName);
+                author.setEmail(email);
+                return authorRepository.save(author);
+            }
+           return null;
+  }
     public Author updateAuthor(Long id, String firstName, String lastName,String email){
         Author  author = findAuthorById(id);
         if(author != null) {
             author.setFirstName(firstName);
             author.setLastName(lastName);
             author.setEmail(email);
-           }
-      return authorRepository.save(author);
+            return authorRepository.save(author);
+           }else{
+            return null;
+        }
+   }
 
-    }
     public List<Author> findAll(){
         return authorRepository.findAll();
     }

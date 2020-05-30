@@ -12,16 +12,13 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Autowired
     PublisherRepository publisherRepository;
-    Publisher publisher;
     public Publisher addPublisher(String name, String address,String email) {
-
-        if((!"".equals(name) && name != null) && (!"".equals(address) && address != null)
-                && (!"".equals(email) && email != null)) {
-            publisher = new Publisher(name,address,email);
-        }
-         return  publisherRepository.save(publisher);
-
-    }
+           if(!"".equals(name)  && !"".equals(address) && !"".equals(email)) {
+                Publisher publisher = new Publisher(name,address,email);
+                return  publisherRepository.save(publisher);
+            }
+         return null;
+}
     public List<Publisher> listPublishers(){
         return publisherRepository.findAll();
     }
@@ -34,11 +31,12 @@ public class PublisherServiceImpl implements PublisherService {
             publisher.setName(name);
             publisher.setEmail(email);
             publisher.setAddress(address);
+            return publisherRepository.save(publisher);
         }
-        return publisherRepository.save(publisher);
+       return  null;
     }
     public void deletePublisher(Long id){
-        publisher = findPublisherById(id);
+        Publisher publisher = findPublisherById(id);
         publisherRepository.delete(publisher);
     }
 }
