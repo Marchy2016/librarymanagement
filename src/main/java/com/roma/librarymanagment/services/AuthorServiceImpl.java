@@ -27,6 +27,7 @@ public class AuthorServiceImpl implements AuthorService {
                author.setFirstName(firstName);
                author.setLastName(lastName);
                author.setEmail(email);
+
            }
 
         return authorRepository.save(author);
